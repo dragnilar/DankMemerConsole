@@ -6,6 +6,7 @@ public class DankMemerConsoleSettings : SettingsManager
 {
     public string DiscordUserName { get; set; }
     public string DiscordPassword { get; set; }
+    public string DankChannelUrl {get; set;}
 
     public DankMemerConsoleSettings()
     {

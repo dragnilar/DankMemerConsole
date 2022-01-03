@@ -19,6 +19,7 @@ namespace DankMemerConsole.ViewModels
         public virtual string LogText { get; set; }
         public virtual string DiscordUserName { get; set; }
         public virtual string DiscordPassword { get; set; }
+        public virtual string DankChannelUrl { get; set; }
         public DankMemerConsoleSettings Settings { get; set; }
 
         public MainWindowViewModel()
@@ -38,11 +39,15 @@ namespace DankMemerConsole.ViewModels
         {
             DiscordUserName = Settings.DiscordUserName;
             DiscordPassword = Settings.DiscordPassword;
+            DankChannelUrl = Settings.DankChannelUrl;
         }
 
         public void LogIntoDiscord()
         {
-            _driver.Navigate().GoToUrl("https://discord.com/channels/843012305197465604/845591055725625354");
+            _driver.Navigate().GoToUrl(!string.IsNullOrWhiteSpace(DankChannelUrl)
+                ? DankChannelUrl
+                : "https://discord.com/channels/@me");
+
             var userName = _driver.FindElement(By.Name("email"));
             userName.SendKeys(DiscordUserName);
             var password = _driver.FindElement(By.Name("password"));
@@ -176,6 +181,12 @@ namespace DankMemerConsole.ViewModels
         public void OnDiscordPasswordChanged()
         {
             Settings.DiscordPassword = DiscordPassword;
+            Settings.Save();
+        }
+
+        public void OnDankChannelUrlChanged()
+        {
+            Settings.DankChannelUrl = DankChannelUrl;
             Settings.Save();
         }
     }
