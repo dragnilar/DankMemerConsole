@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
+using DankMemerConsole.Services;
+using DevExpress.Mvvm.POCO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
 using Tyrrrz.Settings;
@@ -21,6 +25,7 @@ namespace DankMemerConsole.ViewModels
         public virtual string DiscordPassword { get; set; }
         public virtual string DankChannelUrl { get; set; }
         public DankMemerConsoleSettings Settings { get; set; }
+        protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
 
         public MainWindowViewModel()
         {
@@ -44,17 +49,12 @@ namespace DankMemerConsole.ViewModels
 
         public void LogIntoDiscord()
         {
-            _driver.Navigate().GoToUrl(!string.IsNullOrWhiteSpace(DankChannelUrl)
-                ? DankChannelUrl
-                : "https://discord.com/channels/@me");
-
-            var userName = _driver.FindElement(By.Name("email"));
-            userName.SendKeys(DiscordUserName);
-            var password = _driver.FindElement(By.Name("password"));
-            password.SendKeys(DiscordPassword);
-            var loginButton = _driver.FindElement(By.XPath("//*[@id=\"app-mount\"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]"));
-            loginButton.Click();
+            WebView2Service.Navigate("https://discord.com/login");
+            //var jsText = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\JS\\Login.js");
+            //WebView2Service.SendJavaScript(jsText);
             LoggedIntoDiscord = true;
+            WebView2Service.Navigate(!string.IsNullOrWhiteSpace(DankChannelUrl) ? DankChannelUrl : "https://discord.com/channels/@me");
+
         }
 
         public async void Slots()
@@ -156,12 +156,12 @@ namespace DankMemerConsole.ViewModels
 
         public async Task SendTextToBrowser(string text)
         {
-            await Task.Run(() =>
-            {
-                var textArea = _driver.FindElement(By.XPath("//div[@data-slate-object='block']"));
-                textArea.SendKeys(text);
-                textArea.SendKeys(Keys.Enter);
-            });
+            //await Task.Run(() =>
+            //{
+            //    var textArea = _driver.FindElement(By.XPath("//div[@data-slate-object='block']"));
+            //    textArea.SendKeys(text);
+            //    textArea.SendKeys(Keys.Enter);
+            //});
         }
 
         public void UpdateLogBox(string message)

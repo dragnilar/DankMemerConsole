@@ -6,6 +6,7 @@
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:local="clr-namespace:DankMemerConsole"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:services="clr-namespace:DankMemerConsole.Services"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
@@ -76,8 +77,7 @@
             MinWidth="350"
             Margin="0,15,0,0"
             Command="{Binding LogIntoDiscordCommand}"
-            Content="Login to Discord"
-            IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}" />
+            Content="Login to Discord" />
         <Separator
             Grid.Row="3"
             Width="15"
@@ -145,7 +145,11 @@
                 Grid.RowSpan="2"
                 Grid.Column="1"
                 Grid.ColumnSpan="5"
-                Source="https://www.discord.com" />
+                Source="https://www.discord.com">
+                <dxmvvm:Interaction.Behaviors>
+                    <services:WebView2Service />
+                </dxmvvm:Interaction.Behaviors>
+            </wpf:WebView2>
         </Border>
         <Label
             Grid.Row="9"
