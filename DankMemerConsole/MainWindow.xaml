@@ -1,21 +1,20 @@
-﻿<mah:MetroWindow
+﻿<Window
     x:Class="DankMemerConsole.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System.ComponentModel.TypeConverter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:local="clr-namespace:DankMemerConsole"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
+    xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
     Width="1200"
     Height="800"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
-    Background="Black"
-    BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
-    BorderThickness="1"
+    ui:ThemeManager.IsThemeAware="True"
+    ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
     FontFamily="Segoe UI Variable"
     FontWeight="Bold"
@@ -24,6 +23,7 @@
     mc:Ignorable="d">
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
+        <dxmvvm:EventToCommand Command="{Binding ClosingCommand}" EventName="Closing" />
     </dxmvvm:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
@@ -40,131 +40,124 @@
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40" />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
+            <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <Label
             Grid.Row="1"
+            Grid.Column="1"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Content="Discord Username:"
-            Style="{StaticResource MahApps.Styles.Label}" />
+            Content="Discord Username:" />
         <TextBox
             Grid.Row="1"
-            Grid.Column="1"
-            Style="{StaticResource MahApps.Styles.TextBox}"
+            Grid.Column="2"
             Text="{Binding DiscordUserName, UpdateSourceTrigger=PropertyChanged}" />
         <Label
             Grid.Row="1"
-            Grid.Column="2"
+            Grid.Column="3"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Content="Discord Password:"
-            Style="{StaticResource MahApps.Styles.Label}" />
+            Content="Discord Password:" />
         <TextBox
             Grid.Row="1"
-            Grid.Column="3"
-            Style="{StaticResource MahApps.Styles.TextBox}"
+            Grid.Column="4"
             Text="{Binding DiscordPassword, UpdateSourceTrigger=PropertyChanged}" />
         <Button
             Name="ButtonLogin"
             Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="3"
+            Grid.Column="3"
+            Grid.ColumnSpan="2"
+            MinWidth="350"
             Margin="0,15,0,0"
             Command="{Binding LogIntoDiscordCommand}"
             Content="Login to Discord"
-            IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}"
-            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
-        <Label
+            IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}" />
+        <Separator
             Grid.Row="3"
-            Grid.Column="0"
-            Grid.ColumnSpan="5" />
+            Width="15"
+            Visibility="Hidden" />
         <StackPanel
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             Grid.ColumnSpan="3"
             Orientation="Horizontal">
             <Button
                 Name="ButtonBeg"
                 Command="{Binding BegCommand}"
                 Content="pls beg"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonSearch"
                 Command="{Binding SearchCommand}"
                 Content="pls search"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Command="{Binding FishCommand}"
                 Content="pls fish"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Command="{Binding HuntCommand}"
                 Content="pls hunt"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Command="{Binding DigCommand}"
                 Content="pls dig"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonCrime"
                 Command="{Binding CrimeCommand}"
                 Content="pls crime"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonHighLow"
                 Command="{Binding HighLowCommand}"
                 Content="pls highlow"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonSlots"
                 Command="{Binding SlotsCommand}"
                 Content="pls slots max"
-                IsEnabled="{Binding LoggedIntoDiscord}"
-                Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                IsEnabled="{Binding LoggedIntoDiscord}" />
         </StackPanel>
-        <Label
-            Grid.Row="5"
-            Grid.Column="1"
-            Content="Log / Last Message"
-            Style="{StaticResource MahApps.Styles.Label}" />
-        <TextBox
-            Name="TextBoxStatus"
+        <Border
             Grid.Row="6"
-            Grid.RowSpan="1"
+            Grid.RowSpan="2"
             Grid.Column="1"
-            Grid.ColumnSpan="3"
-            HorizontalScrollBarVisibility="Auto"
-            IsReadOnly="True"
-            Style="{StaticResource MahApps.Styles.TextBox}"
-            Text="{Binding LogText}"
-            VerticalScrollBarVisibility="Auto" />
+            Grid.ColumnSpan="5"
+            BorderBrush="Black"
+            BorderThickness="5">
+            <wpf:WebView2
+                Name="WebView2"
+                Grid.Row="6"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="5"
+                Source="https://www.discord.com" />
+        </Border>
         <Label
-            Grid.Row="9"
-            Grid.Column="1"
-            Content="Enter URL for Dank Memer Channel Here:" />
-        <TextBox
             Grid.Row="9"
             Grid.Column="2"
+            HorizontalAlignment="Right"
+            VerticalContentAlignment="Center"
+            Content="URL For Dank Memer Channel:" />
+        <TextBox
+            Grid.Row="9"
+            Grid.Column="3"
             Grid.ColumnSpan="2"
+            Margin="20,0,0,0"
             Text="{Binding DankChannelUrl, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
-</mah:MetroWindow>
+</Window>

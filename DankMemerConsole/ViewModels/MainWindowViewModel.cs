@@ -52,7 +52,7 @@ namespace DankMemerConsole.ViewModels
             userName.SendKeys(DiscordUserName);
             var password = _driver.FindElement(By.Name("password"));
             password.SendKeys(DiscordPassword);
-            var loginButton = _driver.FindElement(By.ClassName("button-3k0cO7"));
+            var loginButton = _driver.FindElement(By.XPath("//*[@id=\"app-mount\"]/div[2]/div/div/div/div/form/div/div/div[1]/div[2]/button[2]"));
             loginButton.Click();
             LoggedIntoDiscord = true;
         }
