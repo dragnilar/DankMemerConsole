@@ -31,7 +31,8 @@ public class WebView2Service : ServiceBase, IWebView2Service
 
     public async Task<string> SendDiscordMessage(string message)
     {
-        var result = await SendJavaScript($"api.sendMessage(cid, '{message}')");
+        var script = $"api.sendMessage(cid, '{message}')";
+        var result = await SendJavaScript(script);
         return result;
     }
 

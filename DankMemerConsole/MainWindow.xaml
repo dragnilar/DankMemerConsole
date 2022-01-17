@@ -14,7 +14,8 @@
     Width="1200"
     Height="800"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
-    ui:ThemeManager.IsThemeAware="True"
+    ui:ThemeManager.RequestedTheme="Dark"
+    ui:WindowHelper.FixMaximizedWindow="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
     FontFamily="Segoe UI Variable"
@@ -138,7 +139,7 @@
             Grid.RowSpan="2"
             Grid.Column="1"
             Grid.ColumnSpan="5"
-            BorderBrush="Black"
+            BorderBrush="Green"
             BorderThickness="5">
             <wpf:WebView2
                 Name="WebView2"
