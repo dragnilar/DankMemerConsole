@@ -42,4 +42,10 @@ public class WebView2Service : ServiceBase, IWebView2Service
         var result = await SendJavaScript(script);
         return result;
     }
+
+    public async Task<string> RegisterChannel()
+    {
+        var result = await SendJavaScript("id();");
+        return result;
+    }
 }

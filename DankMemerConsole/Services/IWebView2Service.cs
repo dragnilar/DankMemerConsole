@@ -8,4 +8,5 @@ public interface IWebView2Service
     public Task<string> SendJavaScript(string script);
     public Task<string> SendDiscordMessage(string message);
     public Task<string> RegisterSelfBotApi();
+    public Task<string> RegisterChannel();
 }

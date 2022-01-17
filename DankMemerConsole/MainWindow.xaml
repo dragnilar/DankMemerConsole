@@ -11,8 +11,8 @@
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
-    Width="1200"
-    Height="800"
+    MinWidth="1200"
+    MinHeight="800"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
     ui:ThemeManager.RequestedTheme="Dark"
     ui:WindowHelper.FixMaximizedWindow="True"
@@ -73,13 +73,21 @@
         <Button
             Name="ButtonLogin"
             Grid.Row="2"
-            Grid.Column="3"
-            Grid.ColumnSpan="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="1"
             MinWidth="350"
             Margin="0,15,0,0"
             Command="{Binding LogIntoDiscordCommand}"
-            Content="Set Integration (Requires Login To Discord)"
-            IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}" />
+            Content="Set Integration (Requires Login To Discord)" />
+        <Button
+            Name="ButtonRegisterChannel"
+            Grid.Row="2"
+            Grid.Column="4"
+            Grid.ColumnSpan="1"
+            MinWidth="350"
+            Margin="0,15,0,0"
+            Command="{Binding RegisterChannelCommand}"
+            Content="Register Current Channel For Integration)" />
         <Separator
             Grid.Row="3"
             Width="15"
