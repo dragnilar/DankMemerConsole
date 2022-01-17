@@ -45,6 +45,7 @@ namespace DankMemerConsole.ViewModels
         public void LogIntoDiscord()
         {
             WebView2Service.Navigate(!string.IsNullOrWhiteSpace(DankChannelUrl) ? DankChannelUrl : "https://discord.com/channels/@me");
+            WebView2Service.RegisterSelfBotApi();
             LoggedIntoDiscord = true;
 
         }

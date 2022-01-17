@@ -77,7 +77,7 @@
             MinWidth="350"
             Margin="0,15,0,0"
             Command="{Binding LogIntoDiscordCommand}"
-            Content="Login to Discord"
+            Content="Set Integration (Requires Login To Discord)"
             IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}" />
         <Separator
             Grid.Row="3"
