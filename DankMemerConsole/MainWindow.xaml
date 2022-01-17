@@ -77,15 +77,16 @@
             MinWidth="350"
             Margin="0,15,0,0"
             Command="{Binding LogIntoDiscordCommand}"
-            Content="Login to Discord" />
+            Content="Login to Discord"
+            IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}" />
         <Separator
             Grid.Row="3"
             Width="15"
             Visibility="Hidden" />
         <StackPanel
             Grid.Row="4"
-            Grid.Column="2"
-            Grid.ColumnSpan="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
             Orientation="Horizontal">
             <Button
                 Name="ButtonBeg"

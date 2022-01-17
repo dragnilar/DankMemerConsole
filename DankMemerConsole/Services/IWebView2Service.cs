@@ -1,7 +1,11 @@
-﻿namespace DankMemerConsole.Services;
+﻿using System.Threading.Tasks;
+
+namespace DankMemerConsole.Services;
 
 public interface IWebView2Service
 {
     public void Navigate(string url);
-    public void SendJavaScript(string script);
+    public Task<string> SendJavaScript(string script);
+    public Task<string> SendDiscordMessage(string message);
+    public Task<string> RegisterSelfBotApi();
 }

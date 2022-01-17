@@ -10,22 +10,21 @@ using System.Windows;
 using System.Windows.Threading;
 using DankMemerConsole.Services;
 using DevExpress.Mvvm.POCO;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Edge;
+using NLog;
 using Tyrrrz.Settings;
+using LogLevel = NLog.LogLevel;
 
 namespace DankMemerConsole.ViewModels
 {
     public class MainWindowViewModel
     {
         public virtual bool LoggedIntoDiscord { get; set; }
-        private readonly IWebDriver _driver;
-        public virtual string LogText { get; set; }
         public virtual string DiscordUserName { get; set; }
         public virtual string DiscordPassword { get; set; }
         public virtual string DankChannelUrl { get; set; }
         public DankMemerConsoleSettings Settings { get; set; }
         protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
+        private Logger nLogger = LogManager.GetCurrentClassLogger();
 
         public MainWindowViewModel()
         {
@@ -34,10 +33,6 @@ namespace DankMemerConsole.ViewModels
             {
                 Settings.Load();
             }
-            var service = EdgeDriverService.CreateDefaultService();
-            service.HideCommandPromptWindow = true;
-            _driver = new EdgeDriver(service);
-
         }
 
         public void Loaded()
@@ -49,11 +44,8 @@ namespace DankMemerConsole.ViewModels
 
         public void LogIntoDiscord()
         {
-            WebView2Service.Navigate("https://discord.com/login");
-            //var jsText = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\JS\\Login.js");
-            //WebView2Service.SendJavaScript(jsText);
-            LoggedIntoDiscord = true;
             WebView2Service.Navigate(!string.IsNullOrWhiteSpace(DankChannelUrl) ? DankChannelUrl : "https://discord.com/channels/@me");
+            LoggedIntoDiscord = true;
 
         }
 
@@ -61,11 +53,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls slots max");
+                await SendMessageToDiscord("pls slots max");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Slots: {e}");
             }
 
         }
@@ -74,11 +66,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls beg");
+                await SendMessageToDiscord("pls beg");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Beg: {e}");
             }
         }
 
@@ -86,11 +78,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls search");
+                await SendMessageToDiscord("pls search");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Search: {e}");
             }
         }
 
@@ -98,11 +90,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls crime");
+                await SendMessageToDiscord("pls crime");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Crime: {e}");
             }
         }
 
@@ -110,11 +102,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls fish");
+                await SendMessageToDiscord("pls fish");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Fish: {e}");
             }
         }
 
@@ -122,11 +114,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls hunt");
+                await SendMessageToDiscord("pls hunt");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Hunt: {e}");
             }
         }
 
@@ -134,11 +126,11 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls dig");
+                await SendMessageToDiscord("pls dig");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running Dig: {e}");
             }
         }
 
@@ -146,30 +138,18 @@ namespace DankMemerConsole.ViewModels
         {
             try
             {
-                await SendTextToBrowser("pls highlow");
+                await SendMessageToDiscord("pls highlow");
             }
             catch (Exception e)
             {
-                UpdateLogBox(e.ToString());
+                nLogger.Log(LogLevel.Error, $"Error running HighLow: {e}");
             }
         }
 
-        public async Task SendTextToBrowser(string text)
+        public async Task SendMessageToDiscord(string text)
         {
-            //await Task.Run(() =>
-            //{
-            //    var textArea = _driver.FindElement(By.XPath("//div[@data-slate-object='block']"));
-            //    textArea.SendKeys(text);
-            //    textArea.SendKeys(Keys.Enter);
-            //});
-        }
-
-        public void UpdateLogBox(string message)
-        {
-            Dispatcher.CurrentDispatcher.Invoke(() =>
-            {
-                LogText = message;
-            });
+            var result = await WebView2Service.SendDiscordMessage(text);
+            nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
         }
 
         public void OnDiscordUserNameChanged()
