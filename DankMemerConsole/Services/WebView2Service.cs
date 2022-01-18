@@ -48,4 +48,9 @@ public class WebView2Service : ServiceBase, IWebView2Service
         var result = await SendJavaScript("id();");
         return result;
     }
+
+    public string GetCurrentUrl()
+    {
+        return WebView2.CoreWebView2.Source;
+    }
 }

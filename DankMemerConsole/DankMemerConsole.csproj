@@ -10,6 +10,7 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <None Remove="C:\Users\steph\.nuget\packages\nlog.config\4.7.13\contentFiles\any\any\NLog.config" />
 	  <None Remove="JS\DiscordSelfBotAPI.js" />
 	  <None Remove="JS\Login.js" />
 	</ItemGroup>
@@ -38,6 +39,12 @@
 
 	<ItemGroup>
 	  <Folder Include="Services\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="NLog.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

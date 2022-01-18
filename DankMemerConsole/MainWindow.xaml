@@ -14,7 +14,7 @@
     MinWidth="1200"
     MinHeight="800"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
-    ui:ThemeManager.RequestedTheme="Dark"
+    ui:ThemeManager.IsThemeAware="True"
     ui:WindowHelper.FixMaximizedWindow="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
@@ -50,128 +50,104 @@
             <ColumnDefinition />
             <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
-        <Label
-            Grid.Row="1"
-            Grid.Column="1"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="Discord Username:" />
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="2"
-            Text="{Binding DiscordUserName, UpdateSourceTrigger=PropertyChanged}" />
-        <Label
-            Grid.Row="1"
-            Grid.Column="3"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Content="Discord Password:" />
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="4"
-            Text="{Binding DiscordPassword, UpdateSourceTrigger=PropertyChanged}" />
-        <Button
-            Name="ButtonLogin"
-            Grid.Row="2"
-            Grid.Column="2"
-            Grid.ColumnSpan="1"
-            MinWidth="350"
-            Margin="0,15,0,0"
-            Command="{Binding LogIntoDiscordCommand}"
-            Content="Set Integration (Requires Login To Discord)" />
-        <Button
-            Name="ButtonRegisterChannel"
-            Grid.Row="2"
-            Grid.Column="4"
-            Grid.ColumnSpan="1"
-            MinWidth="350"
-            Margin="0,15,0,0"
-            Command="{Binding RegisterChannelCommand}"
-            Content="Register Current Channel For Integration)" />
-        <Separator
-            Grid.Row="3"
-            Width="15"
-            Visibility="Hidden" />
         <StackPanel
-            Grid.Row="4"
+            Grid.Row="2"
             Grid.Column="1"
-            Grid.ColumnSpan="5"
             Orientation="Horizontal">
-            <Button
-                Name="ButtonBeg"
-                Command="{Binding BegCommand}"
-                Content="pls beg"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonSearch"
-                Command="{Binding SearchCommand}"
-                Content="pls search"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Command="{Binding FishCommand}"
-                Content="pls fish"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Command="{Binding HuntCommand}"
-                Content="pls hunt"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Command="{Binding DigCommand}"
-                Content="pls dig"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonCrime"
-                Command="{Binding CrimeCommand}"
-                Content="pls crime"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonHighLow"
-                Command="{Binding HighLowCommand}"
-                Content="pls highlow"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonSlots"
-                Command="{Binding SlotsCommand}"
-                Content="pls slots max"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Button Content="Test" />
+            <Button Content="Test" />
+            <Button Content="Test" />
+            <TextBox />
         </StackPanel>
         <Border
-            Grid.Row="6"
-            Grid.RowSpan="2"
+            Grid.Row="3"
+            Grid.RowSpan="5"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BorderBrush="Green"
             BorderThickness="5">
-            <wpf:WebView2
-                Name="WebView2"
-                Grid.Row="6"
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Grid.ColumnSpan="5"
-                Source="https://www.discord.com">
+            <wpf:WebView2 Name="WebView2" Source="https://www.discord.com">
                 <dxmvvm:Interaction.Behaviors>
                     <services:WebView2Service />
                 </dxmvvm:Interaction.Behaviors>
             </wpf:WebView2>
         </Border>
-        <Label
+        <StackPanel
+            Grid.Row="8"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            Orientation="Horizontal">
+            <Button
+                Name="ButtonBeg"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls beg"
+                Content="pls beg"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonSearch"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls search"
+                Content="pls search"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls fish"
+                Content="pls fish"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls hunt"
+                Content="pls hunt"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls dig"
+                Content="pls dig"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonCrime"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls crime"
+                Content="pls crime"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonHighLow"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls highlow"
+                Content="pls highlow"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonPM"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls pm"
+                Content="pls pm"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonSlots"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls slots max"
+                Content="pls slots max"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+        </StackPanel>
+        <Button
+            Name="ButtonLogin"
+            Grid.Row="9"
+            Grid.Column="1"
+            Command="{Binding InjectAPICommand}"
+            Content="Inject API And Go To Dank Channel" />
+        <Button
+            Name="ButtonRegisterChannel"
             Grid.Row="9"
             Grid.Column="2"
-            HorizontalAlignment="Right"
-            VerticalContentAlignment="Center"
-            Content="URL For Dank Memer Channel:" />
-        <TextBox
-            Grid.Row="9"
-            Grid.Column="3"
-            Grid.ColumnSpan="2"
-            Margin="20,0,0,0"
-            Text="{Binding DankChannelUrl, UpdateSourceTrigger=PropertyChanged}" />
+            Command="{Binding RegisterChannelCommand}"
+            Content="Set Current Channel For API" />
     </Grid>
 </Window>
