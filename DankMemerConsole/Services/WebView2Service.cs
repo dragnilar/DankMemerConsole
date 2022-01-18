@@ -51,6 +51,31 @@ public class WebView2Service : ServiceBase, IWebView2Service
 
     public string GetCurrentUrl()
     {
-        return WebView2.CoreWebView2.Source;
+        return WebView2.CoreWebView2 == null ? WebView2.Source.OriginalString : WebView2.CoreWebView2.Source;
+    }
+
+    public bool CanGoForward()
+    {
+        return WebView2 is {CanGoForward: true};
+    }
+
+    public bool CanGoBackward()
+    {
+        return WebView2 is {CanGoBack: true};
+    }
+
+    public void GoForward()
+    {
+        if (CanGoForward()) WebView2.GoForward();
+    }
+
+    public void GoBackward()
+    {
+        if (CanGoBackward()) WebView2.GoBack();
+    }
+
+    public void Refresh()
+    {
+        WebView2?.Reload();
     }
 }

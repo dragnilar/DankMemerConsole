@@ -10,4 +10,10 @@ public interface IWebView2Service
     public Task<string> RegisterSelfBotApi();
     public Task<string> RegisterChannel();
     public string GetCurrentUrl();
+
+    public bool CanGoForward();
+    public bool CanGoBackward();
+    public void GoForward();
+    public void GoBackward();
+    public void Refresh();
 }

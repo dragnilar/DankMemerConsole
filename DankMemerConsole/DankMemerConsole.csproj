@@ -10,6 +10,8 @@
 	</PropertyGroup>
 	
 	<ItemGroup>
+	  <None Remove="Assets\feelsbadman.png" />
+	  <None Remove="Assets\pepe.png" />
 	  <None Remove="C:\Users\steph\.nuget\packages\nlog.config\4.7.13\contentFiles\any\any\NLog.config" />
 	  <None Remove="JS\DiscordSelfBotAPI.js" />
 	  <None Remove="JS\Login.js" />
@@ -34,6 +36,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Resource Include="Assets\feelsbadman.png" />
+	  <Resource Include="Assets\pepe.png" />
 	  <Resource Include="pepe.ico" />
 	</ItemGroup>
 

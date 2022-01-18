@@ -29,15 +29,15 @@
     </dxmvvm:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="50" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="80" />
-            <RowDefinition Height="80" />
+            <RowDefinition />
+            <RowDefinition Height="60" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -54,18 +54,69 @@
             Grid.Row="2"
             Grid.Column="1"
             Orientation="Horizontal">
-            <Button Content="Test" />
-            <Button Content="Test" />
-            <Button Content="Test" />
-            <TextBox />
+            <Button
+                Name="ButtonLogin"
+                Command="{Binding InjectAPICommand}"
+                Content="Start Integration" />
+            <Button
+                Name="ButtonRegisterChannel"
+                Command="{Binding RegisterChannelCommand}"
+                Content="Set Current Channel" />
         </StackPanel>
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="2"
+            Grid.ColumnSpan="3"
+            Text="{Binding AddressBarUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:KeyToCommand Command="{Binding WebView2NavigateCommand}" KeyGesture="Enter" />
+            </dxmvvm:Interaction.Behaviors>
+        </TextBox>
+        <StackPanel
+            Grid.Row="2"
+            Grid.Column="5"
+            Orientation="Horizontal">
+            <Button Command="{Binding GoBackwardCommand}" Content="B" />
+            <Button Command="{Binding GoForwardCommand}" Content="F" />
+            <Button Command="{Binding RefreshCommand}" Content="R" />
+            <Button Command="{Binding GoHomeCommand}" Content="H" />
+            <Button
+                Grid.Row="2"
+                Grid.Column="5"
+                Command="{Binding WebView2NavigateCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        Content="GO" />
+                    <Image
+                        Width="25"
+                        Height="25"
+                        Source="../Assets/feelsbadman.png"
+                        ToolTip="Go somewhere man..." />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Image
+            Grid.Row="2"
+            Grid.Column="6"
+            Source="../Assets/pepe.png"
+            ToolTip="Feels Dank Man...">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand
+                    Command="{Binding WebView2NavigateCommand}"
+                    CommandParameter="https://www.dankmemer.lol"
+                    EventName="MouseDown" />
+            </dxmvvm:Interaction.Behaviors>
+        </Image>
         <Border
             Grid.Row="3"
             Grid.RowSpan="5"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BorderBrush="Green"
-            BorderThickness="5">
+            BorderThickness="2"
+            CornerRadius="2">
             <wpf:WebView2 Name="WebView2" Source="https://www.discord.com">
                 <dxmvvm:Interaction.Behaviors>
                     <services:WebView2Service />
@@ -79,6 +130,8 @@
             Orientation="Horizontal">
             <Button
                 Name="ButtonBeg"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls beg"
                 Content="pls beg"
@@ -86,24 +139,32 @@
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonSearch"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls search"
                 Content="pls search"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls fish"
                 Content="pls fish"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls hunt"
                 Content="pls hunt"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls dig"
                 Content="pls dig"
@@ -111,6 +172,8 @@
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonCrime"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls crime"
                 Content="pls crime"
@@ -118,6 +181,8 @@
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonHighLow"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls highlow"
                 Content="pls highlow"
@@ -125,6 +190,8 @@
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonPM"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls pm"
                 Content="pls pm"
@@ -132,22 +199,69 @@
             <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonSlots"
+                BorderBrush="Green"
+                BorderThickness="1"
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls slots max"
                 Content="pls slots max"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonStream"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls stream"
+                Content="pls stream"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonWork"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls work"
+                Content="pls work"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonDeposit"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls dep max"
+                Content="pls dep max"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonProfile"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls profile"
+                Content="pls profile"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonPet"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls pet"
+                Content="pls pet"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
         </StackPanel>
-        <Button
-            Name="ButtonLogin"
+        <Image
             Grid.Row="9"
-            Grid.Column="1"
-            Command="{Binding InjectAPICommand}"
-            Content="Inject API And Go To Dank Channel" />
-        <Button
-            Name="ButtonRegisterChannel"
-            Grid.Row="9"
-            Grid.Column="2"
-            Command="{Binding RegisterChannelCommand}"
-            Content="Set Current Channel For API" />
+            Grid.Column="6"
+            Source="../Assets/pepe.png"
+            ToolTip="Feels Dank Man...">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:EventToCommand
+                    Command="{Binding WebView2NavigateCommand}"
+                    CommandParameter="https://www.dankmemer.lol"
+                    EventName="MouseDown" />
+            </dxmvvm:Interaction.Behaviors>
+        </Image>
     </Grid>
 </Window>
