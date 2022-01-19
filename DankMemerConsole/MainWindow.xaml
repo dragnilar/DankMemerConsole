@@ -11,15 +11,13 @@
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
-    MinWidth="1200"
-    MinHeight="800"
+    MinWidth="1350"
+    MinHeight="950"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
     ui:ThemeManager.IsThemeAware="True"
     ui:WindowHelper.FixMaximizedWindow="True"
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
-    FontFamily="Segoe UI Variable"
-    FontWeight="Bold"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <dxmvvm:Interaction.Behaviors>
@@ -32,11 +30,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition Height="60" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
         </Grid.RowDefinitions>
@@ -146,12 +145,19 @@
                 <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
             </Button>
         </StackPanel>
+        <Separator
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="7"
+            Height="5"
+            Background="Green"
+            Foreground="Green" />
         <Border
             Name="BorderWebView2Border"
-            Grid.Row="3"
-            Grid.RowSpan="5"
-            Grid.Column="1"
-            Grid.ColumnSpan="5"
+            Grid.Row="4"
+            Grid.RowSpan="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="7"
             BorderBrush="Green"
             BorderThickness="2"
             CornerRadius="2">
@@ -161,8 +167,14 @@
                 </dxmvvm:Interaction.Behaviors>
             </wpf:WebView2>
         </Border>
-        <StackPanel
+        <Separator
             Grid.Row="8"
+            Grid.Column="0"
+            Grid.ColumnSpan="7"
+            Background="Green"
+            Foreground="Green" />
+        <StackPanel
+            Grid.Row="9"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             Orientation="Horizontal">
@@ -173,6 +185,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls beg"
                 Content="pls beg"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -182,6 +195,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls search"
                 Content="pls search"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -190,6 +204,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls fish"
                 Content="pls fish"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -198,6 +213,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls hunt"
                 Content="pls hunt"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -206,6 +222,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls dig"
                 Content="pls dig"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -215,6 +232,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls crime"
                 Content="pls crime"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -224,6 +242,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls highlow"
                 Content="pls highlow"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -233,6 +252,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls pm"
                 Content="pls pm"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -242,6 +262,27 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls slots max"
                 Content="pls slots max"
+                FontWeight="Bold"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonBet"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls bet max"
+                Content="pls bet max"
+                FontWeight="Bold"
+                IsEnabled="{Binding LoggedIntoDiscord}" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonBj"
+                BorderBrush="Green"
+                BorderThickness="1"
+                Command="{Binding SendDankMessageCommand}"
+                CommandParameter="pls bj max"
+                Content="pls bj max"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -251,6 +292,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls stream"
                 Content="pls stream"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -260,6 +302,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls work"
                 Content="pls work"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -269,6 +312,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls dep max"
                 Content="pls dep max"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -278,6 +322,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls profile"
                 Content="pls profile"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -287,6 +332,7 @@
                 Command="{Binding SendDankMessageCommand}"
                 CommandParameter="pls pet"
                 Content="pls pet"
+                FontWeight="Bold"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
         </StackPanel>
     </Grid>

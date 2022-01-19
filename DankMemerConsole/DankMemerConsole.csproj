@@ -12,14 +12,10 @@
 	<ItemGroup>
 	  <None Remove="C:\Users\steph\.nuget\packages\nlog.config\4.7.13\contentFiles\any\any\NLog.config" />
 	  <None Remove="JS\DiscordSelfBotAPI.js" />
-	  <None Remove="JS\Login.js" />
 	</ItemGroup>
 	
 	<ItemGroup>
 	  <Content Include="JS\DiscordSelfBotAPI.js">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JS\Login.js">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
