@@ -20,7 +20,6 @@
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
     FontFamily="Segoe UI Variable"
     FontWeight="Bold"
-    Icon="../pepe.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <dxmvvm:Interaction.Behaviors>
@@ -51,19 +50,79 @@
             <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
         <StackPanel
+            Name="StackPanelBrowserButtons"
             Grid.Row="2"
             Grid.Column="1"
             Orientation="Horizontal">
             <Button
                 Name="ButtonLogin"
+                Width="32"
+                Height="32"
+                Background="Transparent"
                 Command="{Binding InjectAPICommand}"
-                Content="Start Integration" />
+                IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}"
+                ToolTip="Start integration and inject API into Discord. This will also navigate to your most recently registered channel.">
+                <Image Source="{FluentIconSource Key=Power_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
             <Button
                 Name="ButtonRegisterChannel"
+                Width="32"
+                Height="32"
+                Background="Transparent"
                 Command="{Binding RegisterChannelCommand}"
-                Content="Set Current Channel" />
+                IsEnabled="{Binding LoggedIntoDiscord}"
+                ToolTip="Register the current channel in Discord as your channel to use the Dank Memer integration">
+                <Image Source="{FluentIconSource Key=CalendarEdit_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding GoBackwardCommand}"
+                ToolTip="Go back in browser history">
+                <Image Source="{FluentIconSource Key=ArrowLeft_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding GoForwardCommand}"
+                ToolTip="Go forward in browser history">
+                <Image Source="{FluentIconSource Key=ArrowRight_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding RefreshCommand}"
+                ToolTip="Refresh page">
+                <Image Source="{FluentIconSource Key=ArrowClockwise_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding GoHomeCommand}"
+                ToolTip="Return to discord.com">
+                <Image Source="{FluentIconSource Key=Home_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding WebView2NavigateCommand}"
+                ToolTip="Navigate to site in address bar">
+                <Image Source="{FluentIconSource Key=CaretRight_24_Regular, Brush=Green}" />
+            </Button>
         </StackPanel>
         <TextBox
+            Name="TextBoxAddressBar"
             Grid.Row="2"
             Grid.Column="2"
             Grid.ColumnSpan="3"
@@ -76,40 +135,19 @@
             Grid.Row="2"
             Grid.Column="5"
             Orientation="Horizontal">
-            <Button Command="{Binding GoBackwardCommand}" Content="B" />
-            <Button Command="{Binding GoForwardCommand}" Content="F" />
-            <Button Command="{Binding RefreshCommand}" Content="R" />
-            <Button Command="{Binding GoHomeCommand}" Content="H" />
+            <Separator Width="15" Visibility="Hidden" />
             <Button
-                Grid.Row="2"
-                Grid.Column="5"
-                Command="{Binding WebView2NavigateCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <Label
-                        Margin="10,0,10,0"
-                        VerticalAlignment="Center"
-                        Content="GO" />
-                    <Image
-                        Width="25"
-                        Height="25"
-                        Source="../Assets/feelsbadman.png"
-                        ToolTip="Go somewhere man..." />
-                </StackPanel>
+                Width="32"
+                Height="32"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                Command="{Binding ClearCookiesCommand}"
+                ToolTip="Clear All Cookies">
+                <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
             </Button>
         </StackPanel>
-        <Image
-            Grid.Row="2"
-            Grid.Column="6"
-            Source="../Assets/pepe.png"
-            ToolTip="Feels Dank Man...">
-            <dxmvvm:Interaction.Behaviors>
-                <dxmvvm:EventToCommand
-                    Command="{Binding WebView2NavigateCommand}"
-                    CommandParameter="https://www.dankmemer.lol"
-                    EventName="MouseDown" />
-            </dxmvvm:Interaction.Behaviors>
-        </Image>
         <Border
+            Name="BorderWebView2Border"
             Grid.Row="3"
             Grid.RowSpan="5"
             Grid.Column="1"
@@ -251,17 +289,5 @@
                 Content="pls pet"
                 IsEnabled="{Binding LoggedIntoDiscord}" />
         </StackPanel>
-        <Image
-            Grid.Row="9"
-            Grid.Column="6"
-            Source="../Assets/pepe.png"
-            ToolTip="Feels Dank Man...">
-            <dxmvvm:Interaction.Behaviors>
-                <dxmvvm:EventToCommand
-                    Command="{Binding WebView2NavigateCommand}"
-                    CommandParameter="https://www.dankmemer.lol"
-                    EventName="MouseDown" />
-            </dxmvvm:Interaction.Behaviors>
-        </Image>
     </Grid>
 </Window>

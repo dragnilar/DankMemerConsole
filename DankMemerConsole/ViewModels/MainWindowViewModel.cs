@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DankMemerConsole.Services;
 using DevExpress.Mvvm.POCO;
 using NLog;
@@ -88,6 +89,11 @@ public class MainWindowViewModel
     {
         WebView2Service.Navigate("https://www.discord.com");
         AddressBarUrl = WebView2Service.GetCurrentUrl();
+    }
+
+    public void ClearCookies()
+    {
+        WebView2Service.WebView2.CoreWebView2.CookieManager.DeleteAllCookies();
     }
 
     public async Task SendMessageToDiscord(string text)

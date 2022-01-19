@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace DankMemerConsole.Services;
 
 public interface IWebView2Service
 {
+    public WebView2 WebView2 { get; }
     public void Navigate(string url);
     public Task<string> SendJavaScript(string script);
     public Task<string> SendDiscordMessage(string message);
