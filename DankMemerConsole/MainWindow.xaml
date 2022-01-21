@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:local="clr-namespace:DankMemerConsole"
+    xmlns:markupExtensions="clr-namespace:DankMemerConsole.MarkupExtensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:services="clr-namespace:DankMemerConsole.Services"
     xmlns:ui="http://schemas.modernwpf.com/2019"
@@ -17,13 +18,21 @@
     ui:ThemeManager.IsThemeAware="True"
     ui:WindowHelper.FixMaximizedWindow="True"
     ui:WindowHelper.UseModernWindowStyle="True"
+    Background="#0b110c"
     DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainWindowViewModel}}"
+    FontFamily="{markupExtensions:FontExplorer Key=Montserrat}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
         <dxmvvm:EventToCommand Command="{Binding ClosingCommand}" EventName="Closing" />
     </dxmvvm:Interaction.Behaviors>
+    <Window.Resources>
+        <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
+            <Setter Property="Background" Value="#202c22" />
+            <Setter Property="Foreground" Value="#ffffff" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -34,10 +43,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40" />
@@ -48,7 +57,7 @@
             <ColumnDefinition />
             <ColumnDefinition Width="40" />
         </Grid.ColumnDefinitions>
-        <StackPanel
+        <WrapPanel
             Name="StackPanelBrowserButtons"
             Grid.Row="2"
             Grid.Column="1"
@@ -119,7 +128,7 @@
                 ToolTip="Navigate to site in address bar">
                 <Image Source="{FluentIconSource Key=CaretRight_24_Regular, Brush=Green}" />
             </Button>
-        </StackPanel>
+        </WrapPanel>
         <TextBox
             Name="TextBoxAddressBar"
             Grid.Row="2"
@@ -167,173 +176,229 @@
                 </dxmvvm:Interaction.Behaviors>
             </wpf:WebView2>
         </Border>
-        <Separator
+        <TextBlock
             Grid.Row="8"
-            Grid.Column="0"
-            Grid.ColumnSpan="7"
-            Background="Green"
-            Foreground="Green" />
-        <StackPanel
+            Grid.Column="3"
+            HorizontalAlignment="Center"
+            Text="Quick Commands" />
+        <Border
             Grid.Row="9"
             Grid.Column="1"
             Grid.ColumnSpan="5"
-            Orientation="Horizontal">
-            <Button
-                Name="ButtonBeg"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls beg"
-                Content="pls beg"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonSearch"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls search"
-                Content="pls search"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls fish"
-                Content="pls fish"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls hunt"
-                Content="pls hunt"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls dig"
-                Content="pls dig"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonCrime"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls crime"
-                Content="pls crime"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonHighLow"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls highlow"
-                Content="pls highlow"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonPM"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls pm"
-                Content="pls pm"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonSlots"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls slots max"
-                Content="pls slots max"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonBet"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls bet max"
-                Content="pls bet max"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonBj"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls bj max"
-                Content="pls bj max"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonStream"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls stream"
-                Content="pls stream"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonWork"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls work"
-                Content="pls work"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonDeposit"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls dep max"
-                Content="pls dep max"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonProfile"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls profile"
-                Content="pls profile"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Name="ButtonPet"
-                BorderBrush="Green"
-                BorderThickness="1"
-                Command="{Binding SendDankMessageCommand}"
-                CommandParameter="pls pet"
-                Content="pls pet"
-                FontWeight="Bold"
-                IsEnabled="{Binding LoggedIntoDiscord}" />
-        </StackPanel>
+            BorderBrush="Green"
+            BorderThickness="1"
+            CornerRadius="3">
+            <WrapPanel ItemHeight="40" Orientation="Horizontal">
+                <Button
+                    Name="ButtonBeg"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls beg"
+                    Content="pls beg"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonSearch"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls search"
+                    Content="pls search"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls fish"
+                    Content="pls fish"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls hunt"
+                    Content="pls hunt"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls dig"
+                    Content="pls dig"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonCrime"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls crime"
+                    Content="pls crime"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonHighLow"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls highlow"
+                    Content="pls highlow"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonPM"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls pm"
+                    Content="pls pm"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <ui:DropDownButton
+                    Name="DropDownButtonGambling"
+                    Background="#202c22"
+                    Content="Gambling"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls slots max"
+                                Header="slots max" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls bet max"
+                                Header="bet max" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls se max"
+                                Header="se max" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls scratch max"
+                                Header="scratch max" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls bj max"
+                                Header="bj max" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonStream"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls stream"
+                    Content="pls stream"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonWork"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls work"
+                    Content="pls work"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonDeposit"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls dep max"
+                    Content="pls dep max"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonProfile"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls profile"
+                    Content="pls profile"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <Button
+                    Name="ButtonPet"
+                    Command="{Binding SendDankMessageCommand}"
+                    CommandParameter="pls pet"
+                    Content="pls pet"
+                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <Separator Width="15" Visibility="Hidden" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls use"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use horse"
+                                Header="horse" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use spinner"
+                                Header="spinner" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use pod"
+                                Header="pod" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use daily"
+                                Header="daily 1" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use daily 6"
+                                Header="daily 6" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use pizza"
+                                Header="pizza" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use cell"
+                                Header="cell" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use jar"
+                                Header="jar" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
+                <Separator Width="15" Visibility="Hidden" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls sell"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell sand"
+                                Header="sand" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell phone"
+                                Header="phone" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell junk"
+                                Header="junk" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell fish"
+                                Header="fish" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell garbage"
+                                Header="garbage" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
+            </WrapPanel>
+        </Border>
+        <ResizeGrip Grid.Row="11" Grid.Column="6" />
     </Grid>
 </Window>
