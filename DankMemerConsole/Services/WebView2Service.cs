@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using DankMemerConsole.Properties;
 using DevExpress.Mvvm.UI;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
@@ -38,8 +39,7 @@ public class WebView2Service : ServiceBase, IWebView2Service
 
     public async Task<string> RegisterSelfBotApi()
     {
-        var script = await File.ReadAllTextAsync(Path.Join($"{Environment.CurrentDirectory}", "JS\\DiscordSelfBotAPI.js"));
-        var result = await SendJavaScript(script);
+        var result = await SendJavaScript(Resources.DiscordSelfBotAPI);
         return result;
     }
 
