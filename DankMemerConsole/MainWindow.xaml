@@ -10,6 +10,7 @@
     xmlns:services="clr-namespace:DankMemerConsole.Services"
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
+    xmlns:views="clr-namespace:DankMemerConsole.Views"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
     MinWidth="1350"
@@ -23,16 +24,29 @@
     FontFamily="{markupExtensions:FontExplorer Key=Montserrat}"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
-    <dxmvvm:Interaction.Behaviors>
-        <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
-        <dxmvvm:EventToCommand Command="{Binding ClosingCommand}" EventName="Closing" />
-    </dxmvvm:Interaction.Behaviors>
     <Window.Resources>
         <Style BasedOn="{StaticResource DefaultButtonStyle}" TargetType="Button">
             <Setter Property="Background" Value="#202c22" />
             <Setter Property="Foreground" Value="#ffffff" />
         </Style>
+        <DataTemplate x:Key="SettingsTemplate">
+            <views:SettingsDialog />
+        </DataTemplate>
     </Window.Resources>
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
+        <dxmvvm:WindowService ViewTemplate="{StaticResource SettingsTemplate}">
+            <dxmvvm:WindowService.WindowStyle>
+                <Style TargetType="Window">
+                    <Setter Property="Height" Value="500" />
+                    <Setter Property="Width" Value="350" />
+                    <Setter Property="WindowStyle" Value="SingleBorderWindow" />
+                    <Setter Property="Background" Value="#0b110c" />
+                    <Setter Property="ResizeMode" Value="NoResize" />
+                </Style>
+            </dxmvvm:WindowService.WindowStyle>
+        </dxmvvm:WindowService>
+    </dxmvvm:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -153,6 +167,17 @@
                 ToolTip="Clear All Cookies">
                 <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
             </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="SettingsButton"
+                Width="32"
+                Height="32"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                Command="{Binding ShowSettingsCommand}"
+                ToolTip="Show Settings">
+                <Image Source="{FluentIconSource Key=Settings_20_Regular, Brush=Green}" />
+            </Button>
         </StackPanel>
         <Separator
             Grid.Row="3"
@@ -245,35 +270,35 @@
                 <ui:DropDownButton
                     Name="DropDownButtonGambling"
                     Background="#202c22"
-                    Content="Gambling"
+                    Content="pls gambles"
                     IsEnabled="{Binding LoggedIntoDiscord}">
                     <ui:DropDownButton.Flyout>
                         <ui:MenuFlyout>
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls slots max"
-                                Header="slots max" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="slots"
+                                Header="slots" />
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls bet max"
-                                Header="bet max" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="bet"
+                                Header="bet" />
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls se max"
-                                Header="se max" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="se"
+                                Header="snake eyes" />
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls scratch max"
-                                Header="scratch max" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="scratch"
+                                Header="scratch" />
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls bj max"
-                                Header="bj max" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="bj"
+                                Header="blackjack" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
@@ -285,33 +310,135 @@
                     Content="pls stream"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonWork"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls work"
-                    Content="pls work"
-                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls wallet"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls dep max"
+                                Header="dep max" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls bal"
+                                Header="balance" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding WithdrawCommand}"
+                                CommandParameter="pls with max"
+                                Header="withdraw max" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonDeposit"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls dep max"
-                    Content="pls dep max"
-                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls menus"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls profile"
+                                Header="profile" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls pet"
+                                Header="pet" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls shop"
+                                Header="shop" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls inv"
+                                Header="inventory" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls craft"
+                                Header="craft" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls badges"
+                                Header="badges" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls drop"
+                                Header="drop" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls usage"
+                                Header="usage" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls gamelb"
+                                Header="gamelb" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls showcase"
+                                Header="showcase" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonProfile"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls profile"
-                    Content="pls profile"
-                    IsEnabled="{Binding LoggedIntoDiscord}" />
-                <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonPet"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls pet"
-                    Content="pls pet"
-                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls claim"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls work"
+                                Header="work" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls flashsell"
+                                Header="flash sell" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use jar"
+                                Header="jar" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls daily"
+                                Header="daily" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls weekly"
+                                Header="weekly" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls redeem"
+                                Header="redeem" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls monthly"
+                                Header="monthly" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
                 <Separator Width="15" Visibility="Hidden" />
                 <ui:DropDownButton
                     Background="#202c22"
@@ -354,11 +481,6 @@
                                 Command="{Binding SendDankMessageCommand}"
                                 CommandParameter="pls use cell"
                                 Header="cell" />
-                            <MenuItem
-                                Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls use jar"
-                                Header="jar" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>

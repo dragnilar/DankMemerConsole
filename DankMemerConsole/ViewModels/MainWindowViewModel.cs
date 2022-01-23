@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using DankMemerConsole.Messages;
 using DankMemerConsole.Services;
+using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using NLog;
 
@@ -20,12 +21,39 @@ public class MainWindowViewModel
 
     public virtual bool LoggedIntoDiscord { get; set; }
     public virtual string AddressBarUrl { get; set; }
+    public virtual int SlotBetAmount { get; set;}
+    public virtual int BjBetAmount { get; set;}
+    public virtual int GambleBetAmount { get; set; }
+    public virtual int SnakeEyesBetAmount { get; set;}
+    public virtual int ScratchBetAmount { get; set;}
+    public virtual int WithDrawAmount { get; set; }
     public DankMemerConsoleSettings Settings { get; set; }
     protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
 
     public void Loaded()
     {
         AddressBarUrl = WebView2Service.GetCurrentUrl();
+        UpdateValuesFromSettings();
+        Messenger.Default.Register<SettingsUpdatedMessage>(this, OnSettingsUpdatedMessage);
+    }
+
+    private void OnSettingsUpdatedMessage(SettingsUpdatedMessage message)
+    {
+        if (message.SettingsUpdated)
+        {
+            UpdateValuesFromSettings();
+        }
+    }
+
+
+    private void UpdateValuesFromSettings()
+    {
+        SlotBetAmount = Settings.SlotBetAmount;
+        BjBetAmount = Settings.BjBetAmount;
+        GambleBetAmount = Settings.GambleBetAmount;
+        SnakeEyesBetAmount = Settings.SnakeEyesBetAmount;
+        ScratchBetAmount = Settings.ScratchBetAmount;
+        WithDrawAmount = Settings.WithDrawAmount;
     }
 
     public void InjectAPI()
@@ -113,6 +141,43 @@ public class MainWindowViewModel
             WebView2Service.Navigate(url);
             AddressBarUrl = url;
         }
-
     }
+
+    public void ShowSettings()
+    {
+        var service = this.GetRequiredService<IWindowService>();
+        var vm = SettingsDialogViewModel.Create();
+        service.Title = "Settings";
+        service.Show(null, vm, Settings, this);
+    }
+
+    public async Task Gamble(string command)
+    {
+        string commandText;
+        switch (command)
+        {
+            case "bet":
+                commandText = $"pls bet {Settings.GambleBetAmount}";
+                break;
+            case "se":
+                commandText = $"pls se {Settings.SnakeEyesBetAmount}";
+                break;
+            case "bj":
+                commandText = $"pls bj {Settings.BjBetAmount}";
+                break;
+            case "scratch":
+                commandText = $"pls scratch {Settings.ScratchBetAmount}";
+                break;
+            case "slots":
+                commandText = $"pls slots {Settings.SlotBetAmount}";
+                break;
+            default:
+                commandText = $"pls bet {Settings.GambleBetAmount}";
+                break;
+
+        }
+
+        await SendMessageToDiscord(commandText);
+    }
+    public async Task Withdraw() => await SendMessageToDiscord(WithDrawAmount == 0 ? "pls with max" : $"pls with {WithDrawAmount}");
 }

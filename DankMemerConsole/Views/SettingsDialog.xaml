@@ -1,0 +1,90 @@
+﻿<UserControl
+    x:Class="DankMemerConsole.Views.SettingsDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+    xmlns:local="clr-namespace:DankMemerConsole"
+    xmlns:markupExtensions="clr-namespace:DankMemerConsole.MarkupExtensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
+    Width="300"
+    Height="450"
+    d:DataContext="{d:DesignInstance {x:Type viewModels:SettingsDialogViewModel}}"
+    d:DesignHeight="450"
+    d:DesignWidth="300"
+    Background="#0b110c"
+    FontFamily="{markupExtensions:FontExplorer Key=Montserrat}"
+    mc:Ignorable="d">
+    <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:CurrentWindowService />
+        <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
+    </dxmvvm:Interaction.Behaviors>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="15" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <ui:NumberBox
+                Header="Gamble Amount"
+                LargeChange="1000"
+                Maximum="250000"
+                Minimum="1000"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding GambleBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Slots Amount"
+                LargeChange="1000"
+                Maximum="2500"
+                Minimum="1000"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding SlotBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Bj Amount"
+                LargeChange="1000"
+                Maximum="250000"
+                Minimum="1000"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding BjBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Snake Eyes Amount"
+                LargeChange="1000"
+                Maximum="250000"
+                Minimum="1000"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding SnakeEyesBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Scratch Amount"
+                LargeChange="1000"
+                Maximum="250000"
+                Minimum="1000"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding ScratchBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Withdraw Amount (Set to zero for max)"
+                LargeChange="1000"
+                Maximum="99999999"
+                Minimum="0"
+                SmallChange="100"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding WithDrawAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Separator Height="25" Visibility="Hidden" />
+            <Button
+                HorizontalAlignment="Stretch"
+                Command="{Binding SaveSettingsCommand}"
+                Content="Save And Close" />
+        </StackPanel>
+    </Grid>
+
+</UserControl>

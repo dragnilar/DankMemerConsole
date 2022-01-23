@@ -5,6 +5,12 @@ namespace DankMemerConsole;
 public class DankMemerConsoleSettings : SettingsManager
 {
     public string DankChannelUrl {get; set;}
+    public int SlotBetAmount { get; set; } = 1000;
+    public int BjBetAmount { get; set; } = 1000;
+    public int GambleBetAmount { get; set; } = 1000;
+    public int SnakeEyesBetAmount { get; set; } = 1000;
+    public int ScratchBetAmount { get; set; } = 1000;
+    public int WithDrawAmount { get; set; }
 
     public DankMemerConsoleSettings()
     {
