@@ -49,6 +49,26 @@ public class WebView2Service : ServiceBase, IWebView2Service
         return result;
     }
 
+    public async Task<string> RegisterOtherScripts()
+    {
+        var getElementByXpathResult = await SendJavaScript(Resources.GetElementsByXPath);
+        var toggleSideBarScriptResult = await SendJavaScript(Resources.ToggleSideBar);
+        var jQueryRegisterResult = await SendJavaScript(Resources.Jquery);
+        return $"{getElementByXpathResult} + {toggleSideBarScriptResult} + {jQueryRegisterResult}";
+    }
+
+    public async Task<string> HideDiscordSideBar()
+    {
+        var result = await SendJavaScript("HideSideBar()");
+        return result;
+    }
+
+    public async Task<string> ShowDiscordSideBar()
+    {
+        var result = await SendJavaScript("ShowSideBar()");
+        return result;
+    }
+
     public string GetCurrentUrl()
     {
         return WebView2.CoreWebView2 == null ? WebView2.Source.OriginalString : WebView2.CoreWebView2.Source;

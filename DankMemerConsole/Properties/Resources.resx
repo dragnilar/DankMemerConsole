@@ -121,4 +121,13 @@
   <data name="DiscordSelfBotAPI" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\JS\DiscordSelfBotAPI.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="GetElementsByXPath" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JS\GetElementsByXPath.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Jquery" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JS\Jquery.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ToggleSideBar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\JS\ToggleSideBar.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

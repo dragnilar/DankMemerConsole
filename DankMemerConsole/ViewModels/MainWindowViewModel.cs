@@ -12,6 +12,7 @@ namespace DankMemerConsole.ViewModels;
 public class MainWindowViewModel
 {
     private readonly Logger nLogger = LogManager.GetCurrentClassLogger();
+    private bool SideBarVisible = true;
 
     public MainWindowViewModel()
     {
@@ -62,6 +63,7 @@ public class MainWindowViewModel
             ? Settings.DankChannelUrl
             : "https://discord.com/channels/@me");
         var registerResult = WebView2Service.RegisterSelfBotApi();
+        var registerOtherScriptsResult = WebView2Service.RegisterOtherScripts();
         AddressBarUrl = Settings.DankChannelUrl;
         nLogger.Log(LogLevel.Info, $"Attempt to register api result: {registerResult}");
         LoggedIntoDiscord = true;
@@ -85,6 +87,21 @@ public class MainWindowViewModel
         catch (Exception e)
         {
             nLogger.Log(LogLevel.Error, $"Error running {commandText}: {e}");
+        }
+    }
+
+    public void ToggleSideBar()
+    {
+        if (SideBarVisible)
+        {
+            WebView2Service.HideDiscordSideBar();
+            SideBarVisible = false;
+        }
+        else
+        {
+            WebView2Service.HideDiscordSideBar();
+            WebView2Service.ShowDiscordSideBar();
+            SideBarVisible = true;
         }
     }
 

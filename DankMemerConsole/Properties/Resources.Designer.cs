@@ -80,5 +80,54 @@ namespace DankMemerConsole.Properties {
                 return ResourceManager.GetString("DiscordSelfBotAPI", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to function getElementsByXPath(xpath, parent) {
+        ///    let results = [];
+        ///    let query = document.evaluate(xpath, parent || document,
+        ///        null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        ///    for (let i = 0, length = query.snapshotLength; i &lt; length; ++i) {
+        ///        results.push(query.snapshotItem(i));
+        ///    }
+        ///    return results;
+        ///}.
+        /// </summary>
+        internal static string GetElementsByXPath {
+            get {
+                return ResourceManager.GetString("GetElementsByXPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /*! jQuery v3.6.0 -ajax,-ajax/jsonp,-ajax/load,-ajax/script,-ajax/var/location,-ajax/var/nonce,-ajax/var/rquery,-ajax/xhr,-manipulation/_evalUrl,-deprecated/ajax-event-alias,-effects,-effects/Tween,-effects/animatedSelector | (c) OpenJS Foundation and other contributors | jquery.org/license */
+        ///!function(e,t){&quot;use strict&quot;;&quot;object&quot;==typeof module&amp;&amp;&quot;object&quot;==typeof module.exports?module.exports=e.document?t(e,!0):function(e){if(!e.document)throw new Error(&quot;jQuery requires a window with a document&quot;);return t(e [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Jquery {
+            get {
+                return ResourceManager.GetString("Jquery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to function ShowSideBar() {
+        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
+        ///    var sideBar = results[0];
+        ///    sideBar.style.visibility = &apos;visible&apos;;
+        ///    sideBar.style.width = &apos;240px&apos;;
+        ///
+        ///}
+        ///
+        ///function HideSideBar() {
+        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
+        ///    var sideBar = results[0];
+        ///    sideBar.style.visibility = &apos;collapse&apos;;
+        ///    sideBar.style.width = &apos;0px&apos;;
+        ///}.
+        /// </summary>
+        internal static string ToggleSideBar {
+            get {
+                return ResourceManager.GetString("ToggleSideBar", resourceCulture);
+            }
+        }
     }
 }

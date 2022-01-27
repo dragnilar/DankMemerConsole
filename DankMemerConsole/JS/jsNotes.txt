@@ -1,0 +1,5 @@
+- Get Jquery https://code.jquery.com/jquery-3.6.0.slim.min.js
+
+- var lastMessage = $("ol li:nth-last-child(2)")
+- var lastMessageButtons =  element.find('button');
+- click buttons

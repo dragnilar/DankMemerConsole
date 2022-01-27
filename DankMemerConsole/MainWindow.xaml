@@ -178,6 +178,16 @@
                 ToolTip="Show Settings">
                 <Image Source="{FluentIconSource Key=Settings_20_Regular, Brush=Green}" />
             </Button>
+            <Button
+                Name="ShowHideSideBarButton"
+                Width="32"
+                Height="32"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                Command="{Binding ToggleSideBarCommand}"
+                ToolTip="Show/Hide Sidebar">
+                <Image Source="{FluentIconSource Key=ToggleLeft_20_Filled, Brush=Green}" />
+            </Button>
         </StackPanel>
         <Separator
             Grid.Row="3"
