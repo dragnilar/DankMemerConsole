@@ -12,7 +12,7 @@
     Width="300"
     Height="450"
     d:DataContext="{d:DesignInstance {x:Type viewModels:SettingsDialogViewModel}}"
-    d:DesignHeight="450"
+    d:DesignHeight="500"
     d:DesignWidth="300"
     Background="#0b110c"
     FontFamily="{markupExtensions:FontExplorer Key=Montserrat}"
@@ -79,6 +79,14 @@
                 SmallChange="100"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding WithDrawAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Lottery Amount"
+                LargeChange="10"
+                Maximum="100"
+                Minimum="1"
+                SmallChange="1"
+                SpinButtonPlacementMode="Compact"
+                Value="{Binding LotteryAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Separator Height="25" Visibility="Hidden" />
             <Button
                 HorizontalAlignment="Stretch"

@@ -13,8 +13,8 @@ function HideSideBar() {
     sideBar.style.width = '0px';
 }
 
-function ClickButtons(buttonIndex) {
-    var lastMessage = $("ol li:nth-last-child(2)");
+function ClickButtons(buttonIndex, messageIndex = 2) {
+    var lastMessage = $("ol li:nth-last-child("+messageIndex+")");
     var lastMessageButtons = lastMessage.find('button');
     lastMessageButtons[buttonIndex].click();
 }

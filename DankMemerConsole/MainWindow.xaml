@@ -39,7 +39,7 @@
         <dxmvvm:WindowService ViewTemplate="{StaticResource SettingsTemplate}">
             <dxmvvm:WindowService.WindowStyle>
                 <Style TargetType="Window">
-                    <Setter Property="Height" Value="500" />
+                    <Setter Property="Height" Value="550" />
                     <Setter Property="Width" Value="350" />
                     <Setter Property="WindowStyle" Value="SingleBorderWindow" />
                     <Setter Property="Background" Value="#0b110c" />
@@ -85,9 +85,8 @@
                 Height="32"
                 Background="Transparent"
                 Command="{Binding InjectAPICommand}"
-                IsEnabled="{Binding LoggedIntoDiscord, Converter={dxmvvm:BooleanNegationConverter}}"
-                ToolTip="Start integration and inject API into Discord. This will also navigate to your most recently registered channel.">
-                <Image Source="{FluentIconSource Key=Power_20_Regular, Brush=Green}" />
+                ToolTip="Start integration and inject scripts into Discord. This will also navigate to your most recently registered channel. If you leave discord, you will need to re-use this to re-inject the integration scripts.">
+                <Image Source="{FluentIconSource Key=NoteAdd_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -150,25 +149,30 @@
             Name="TextBoxAddressBar"
             Grid.Row="2"
             Grid.Column="2"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="2"
             Text="{Binding AddressBarUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:KeyToCommand Command="{Binding WebView2NavigateCommand}" KeyGesture="Enter" />
             </dxmvvm:Interaction.Behaviors>
         </TextBox>
+        <TextBox
+            Name="TextBoxTimer"
+            Grid.Row="2"
+            Grid.Column="4"
+            IsReadOnly="True"
+            Text="{Binding TimerValue}" />
         <StackPanel
             Grid.Row="2"
             Grid.Column="5"
             Orientation="Horizontal">
-            <Separator Width="15" Visibility="Hidden" />
             <Button
                 Width="32"
                 Height="32"
                 HorizontalAlignment="Left"
                 Background="Transparent"
-                Command="{Binding ClearCookiesCommand}"
-                ToolTip="Clear All Cookies">
-                <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
+                Command="{Binding StartTimerCommand}"
+                ToolTip="Start /Stop Stopwatch Timer">
+                <Image Source="{FluentIconSource Key=Timer10_24_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
             <Button
@@ -181,6 +185,7 @@
                 ToolTip="Show Settings">
                 <Image Source="{FluentIconSource Key=Settings_20_Regular, Brush=Green}" />
             </Button>
+            <Separator Width="15" Visibility="Hidden" />
             <ui:ToggleSwitch
                 Name="ToggleSwitchShowHideSideBar"
                 IsEnabled="{Binding LoggedIntoDiscord}"
@@ -188,6 +193,16 @@
                 OffContent="Hide Sidebar"
                 OnContent="Show Sidebar"
                 ToolTip="Shows or hides the side bar in Discord (the server / channel list on the left side)" />
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Width="32"
+                Height="32"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                Command="{Binding ClearCookiesCommand}"
+                ToolTip="Clear All Cookies">
+                <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
+            </Button>
         </StackPanel>
         <Separator
             Grid.Row="3"
@@ -321,9 +336,9 @@
                                 Header="blackjack" />
                             <MenuItem
                                 Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls lotto"
-                                Header="pls lotto" />
+                                Command="{Binding GambleCommand}"
+                                CommandParameter="lotto"
+                                Header="lotto" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
@@ -544,8 +559,28 @@
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
+                <Separator Width="15" Visibility="Hidden" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls games"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls trivia"
+                                Header="trivia" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls gtn"
+                                Header="gtn" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
             </WrapPanel>
         </Border>
-        <ResizeGrip Grid.Row="11" Grid.Column="6" />
+        <ResizeGrip Grid.Row="13" Grid.Column="6" />
     </Grid>
 </Window>

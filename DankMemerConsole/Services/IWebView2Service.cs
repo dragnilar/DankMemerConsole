@@ -14,12 +14,11 @@ public interface IWebView2Service
     public Task<string> RegisterOtherScripts();
     public Task<string> HideDiscordSideBar();
     public Task<string> ShowDiscordSideBar();
+    public Task ClickButton(int buttonIndex, int messageIndex = 1);
     public string GetCurrentUrl();
-
     public bool CanGoForward();
     public bool CanGoBackward();
     public void GoForward();
     public void GoBackward();
     public void Refresh();
-    public Task ClickButton(int buttonIndex);
 }

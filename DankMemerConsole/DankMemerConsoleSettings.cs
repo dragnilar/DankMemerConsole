@@ -11,6 +11,7 @@ public class DankMemerConsoleSettings : SettingsManager
     public int SnakeEyesBetAmount { get; set; } = 1000;
     public int ScratchBetAmount { get; set; } = 1000;
     public int WithDrawAmount { get; set; }
+    public int LotteryAmount { get; set; } = 1;
 
     public DankMemerConsoleSettings()
     {

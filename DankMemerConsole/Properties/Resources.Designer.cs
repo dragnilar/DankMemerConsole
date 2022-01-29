@@ -61,6 +61,30 @@ namespace DankMemerConsole.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to function ShowSideBar() {
+        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
+        ///    var sideBar = results[0];
+        ///    sideBar.style.visibility = &apos;visible&apos;;
+        ///    sideBar.style.width = &apos;240px&apos;;
+        ///
+        ///}
+        ///
+        ///function HideSideBar() {
+        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
+        ///    var sideBar = results[0];
+        ///    sideBar.style.visibility = &apos;collapse&apos;;
+        ///    sideBar.style.width = &apos;0px&apos;;
+        ///}
+        ///
+        ///functio [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DiscordFunctions {
+            get {
+                return ResourceManager.GetString("DiscordFunctions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {
         ///    /* This is a discord self bot script that was developed by rigwild
         ///     * All credit goes to rigwild for this script
@@ -105,28 +129,6 @@ namespace DankMemerConsole.Properties {
         internal static string Jquery {
             get {
                 return ResourceManager.GetString("Jquery", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to function ShowSideBar() {
-        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
-        ///    var sideBar = results[0];
-        ///    sideBar.style.visibility = &apos;visible&apos;;
-        ///    sideBar.style.width = &apos;240px&apos;;
-        ///
-        ///}
-        ///
-        ///function HideSideBar() {
-        ///    var results = getElementsByXPath(&apos;/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[1]&apos;, document);
-        ///    var sideBar = results[0];
-        ///    sideBar.style.visibility = &apos;collapse&apos;;
-        ///    sideBar.style.width = &apos;0px&apos;;
-        ///}.
-        /// </summary>
-        internal static string ToggleSideBar {
-            get {
-                return ResourceManager.GetString("ToggleSideBar", resourceCulture);
             }
         }
     }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DankMemerConsole.Messages;
-using DevExpress.Mvvm;
-using DevExpress.Mvvm.Native;
+﻿using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using NLog;
 
@@ -24,6 +17,7 @@ namespace DankMemerConsole.ViewModels
         public virtual int SnakeEyesBetAmount { get; set; }
         public virtual int ScratchBetAmount { get; set; }
         public virtual int WithDrawAmount { get; set; }
+        public virtual int LotteryAmount { get; set; }
         protected ICurrentWindowService CurrentWindowService => this.GetService<ICurrentWindowService>();
 
         /// <summary>
@@ -54,6 +48,7 @@ namespace DankMemerConsole.ViewModels
             SnakeEyesBetAmount = Settings.SnakeEyesBetAmount;
             ScratchBetAmount = Settings.ScratchBetAmount;
             WithDrawAmount = Settings.WithDrawAmount;
+            LotteryAmount = Settings.LotteryAmount;
         }
 
 
@@ -66,8 +61,8 @@ namespace DankMemerConsole.ViewModels
             Settings.SnakeEyesBetAmount = SnakeEyesBetAmount;
             Settings.ScratchBetAmount = ScratchBetAmount;
             Settings.WithDrawAmount = WithDrawAmount;
+            Settings.LotteryAmount = LotteryAmount;
             Settings.Save();
-            Messenger.Default.Send(new SettingsUpdatedMessage());
             CurrentWindowService.Close();
         }
 

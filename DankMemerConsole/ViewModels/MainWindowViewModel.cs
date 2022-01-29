@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
-using DankMemerConsole.Messages;
+using System.Windows.Threading;
 using DankMemerConsole.Services;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
@@ -13,6 +14,9 @@ public class MainWindowViewModel
 {
     private readonly Logger nLogger = LogManager.GetCurrentClassLogger();
     private bool _Loading;
+    private bool _timerRunning;
+    private DateTime _timerStart;
+    private DispatcherTimer _timer;
     public virtual bool SideBarVisible { get; set; }
 
     public MainWindowViewModel()
@@ -23,13 +27,8 @@ public class MainWindowViewModel
 
     public virtual bool LoggedIntoDiscord { get; set; }
     public virtual string AddressBarUrl { get; set; }
-    public virtual int SlotBetAmount { get; set;}
-    public virtual int BjBetAmount { get; set;}
-    public virtual int GambleBetAmount { get; set; }
-    public virtual int SnakeEyesBetAmount { get; set;}
-    public virtual int ScratchBetAmount { get; set;}
-    public virtual int WithDrawAmount { get; set; }
     public virtual string CommandText { get; set; }
+    public virtual string TimerValue { get; set; }
     public DankMemerConsoleSettings Settings { get; set; }
     protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
 
@@ -38,29 +37,12 @@ public class MainWindowViewModel
         _Loading = true;
         AddressBarUrl = WebView2Service.GetCurrentUrl();
         SideBarVisible = true;
-        UpdateValuesFromSettings();
-        Messenger.Default.Register<SettingsUpdatedMessage>(this, OnSettingsUpdatedMessage);
+        TimerValue = "No Timer Running";
         _Loading = false;
     }
 
-    private void OnSettingsUpdatedMessage(SettingsUpdatedMessage message)
-    {
-        if (message.SettingsUpdated)
-        {
-            UpdateValuesFromSettings();
-        }
-    }
 
 
-    private void UpdateValuesFromSettings()
-    {
-        SlotBetAmount = Settings.SlotBetAmount;
-        BjBetAmount = Settings.BjBetAmount;
-        GambleBetAmount = Settings.GambleBetAmount;
-        SnakeEyesBetAmount = Settings.SnakeEyesBetAmount;
-        ScratchBetAmount = Settings.ScratchBetAmount;
-        WithDrawAmount = Settings.WithDrawAmount;
-    }
 
     public void InjectAPI()
     {
@@ -70,7 +52,8 @@ public class MainWindowViewModel
         var registerResult = WebView2Service.RegisterSelfBotApi();
         var registerOtherScriptsResult = WebView2Service.RegisterOtherScripts();
         AddressBarUrl = Settings.DankChannelUrl;
-        nLogger.Log(LogLevel.Info, $"Attempt to register api result: {registerResult}");
+        nLogger.Log(LogLevel.Info, $"Attempt to register api result: {registerResult}\n" +
+                                   $"Attempt to register other scripts result: {registerOtherScriptsResult}");
         LoggedIntoDiscord = true;
     }
 
@@ -177,9 +160,12 @@ public class MainWindowViewModel
         if (CommandText.ToLower().StartsWith("click"))
         {
             var commandTextArray = CommandText.Split(" ");
-            if (commandTextArray.Length == 2 && int.TryParse(commandTextArray[1], out var intResult))
+            if (commandTextArray.Length >= 2 && int.TryParse(commandTextArray[1], out var intResult))
             {
-                intResult--;
+                if (commandTextArray.Length >= 3 && int.TryParse(commandTextArray[2], out var messageIndexResult))
+                {
+                    await WebView2Service.ClickButton(intResult, messageIndexResult);
+                }
                 await WebView2Service.ClickButton(intResult);
             }
         }
@@ -211,6 +197,9 @@ public class MainWindowViewModel
             case "slots":
                 commandText = $"pls slots {Settings.SlotBetAmount}";
                 break;
+            case "lotto":
+                commandText = $"pls lotto {Settings.LotteryAmount}";
+                break;
             default:
                 commandText = $"pls bet {Settings.GambleBetAmount}";
                 break;
@@ -225,5 +214,32 @@ public class MainWindowViewModel
         Messenger.Default.Send("FocusTextBoxCommandBox");
     }
 
-    public async Task Withdraw() => await SendMessageToDiscord(WithDrawAmount == 0 ? "pls with max" : $"pls with {WithDrawAmount}");
+    public async void StartTimer()
+    {
+        if (!_timerRunning)
+        {
+            _timerStart = DateTime.Now;
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromMilliseconds(1);
+            _timer.Tick += Timer_Tick;
+            _timer.Start();
+            _timerRunning = true;
+        }
+        else
+        {
+            _timer.Stop();
+            _timerRunning = false;
+            TimerValue = "No Timer Running";
+        }
+
+
+    }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        TimerValue = $"Timer: {DateTime.Now.ToString("HH:m:s tt")} - Started: {_timerStart.ToString("HH:m:s tt")}";
+
+    }
+
+    public async Task Withdraw() => await SendMessageToDiscord(Settings.WithDrawAmount == 0 ? "pls with max" : $"pls with {Settings.WithDrawAmount}");
 }
