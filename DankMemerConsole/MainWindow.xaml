@@ -181,16 +181,13 @@
                 ToolTip="Show Settings">
                 <Image Source="{FluentIconSource Key=Settings_20_Regular, Brush=Green}" />
             </Button>
-            <Button
-                Name="ShowHideSideBarButton"
-                Width="32"
-                Height="32"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Command="{Binding ToggleSideBarCommand}"
-                ToolTip="Show/Hide Sidebar">
-                <Image Source="{FluentIconSource Key=ToggleLeft_20_Filled, Brush=Green}" />
-            </Button>
+            <ui:ToggleSwitch
+                Name="ToggleSwitchShowHideSideBar"
+                IsEnabled="{Binding LoggedIntoDiscord}"
+                IsOn="{Binding SideBarVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                OffContent="Hide Sidebar"
+                OnContent="Show Sidebar"
+                ToolTip="Shows or hides the side bar in Discord (the server / channel list on the left side)" />
         </StackPanel>
         <Separator
             Grid.Row="3"
@@ -221,7 +218,7 @@
             Grid.ColumnSpan="5"
             Text="{Binding CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <dxmvvm:Interaction.Behaviors>
-                <dxmvvm:KeyToCommand Command="{Binding SendDiscordMessageTextCommand}" KeyGesture="Enter" />
+                <dxmvvm:KeyToCommand Command="{Binding SendTextBoxMessageCommand}" KeyGesture="Enter" />
             </dxmvvm:Interaction.Behaviors>
         </TextBox>
         <TextBlock
@@ -322,6 +319,11 @@
                                 Command="{Binding GambleCommand}"
                                 CommandParameter="bj"
                                 Header="blackjack" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls lotto"
+                                Header="pls lotto" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>

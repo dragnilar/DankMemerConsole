@@ -98,4 +98,9 @@ public class WebView2Service : ServiceBase, IWebView2Service
     {
         WebView2?.Reload();
     }
+
+    public async Task ClickButton(int buttonIndex)
+    {
+        await SendJavaScript($"ClickButtons({buttonIndex})");
+    }
 }

@@ -21,4 +21,5 @@ public interface IWebView2Service
     public void GoForward();
     public void GoBackward();
     public void Refresh();
+    public Task ClickButton(int buttonIndex);
 }

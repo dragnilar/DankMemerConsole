@@ -12,3 +12,9 @@ function HideSideBar() {
     sideBar.style.visibility = 'collapse';
     sideBar.style.width = '0px';
 }
+
+function ClickButtons(buttonIndex) {
+    var lastMessage = $("ol li:nth-last-child(2)");
+    var lastMessageButtons = lastMessage.find('button');
+    lastMessageButtons[buttonIndex].click();
+}

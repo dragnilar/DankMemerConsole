@@ -42,7 +42,7 @@
             <ui:NumberBox
                 Header="Slots Amount"
                 LargeChange="1000"
-                Maximum="2500"
+                Maximum="2000"
                 Minimum="1000"
                 SmallChange="100"
                 SpinButtonPlacementMode="Compact"

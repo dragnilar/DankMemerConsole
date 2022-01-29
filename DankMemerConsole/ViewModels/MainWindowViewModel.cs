@@ -12,7 +12,8 @@ namespace DankMemerConsole.ViewModels;
 public class MainWindowViewModel
 {
     private readonly Logger nLogger = LogManager.GetCurrentClassLogger();
-    private bool SideBarVisible = true;
+    private bool _Loading;
+    public virtual bool SideBarVisible { get; set; }
 
     public MainWindowViewModel()
     {
@@ -34,9 +35,12 @@ public class MainWindowViewModel
 
     public void Loaded()
     {
+        _Loading = true;
         AddressBarUrl = WebView2Service.GetCurrentUrl();
+        SideBarVisible = true;
         UpdateValuesFromSettings();
         Messenger.Default.Register<SettingsUpdatedMessage>(this, OnSettingsUpdatedMessage);
+        _Loading = false;
     }
 
     private void OnSettingsUpdatedMessage(SettingsUpdatedMessage message)
@@ -91,18 +95,17 @@ public class MainWindowViewModel
         }
     }
 
-    public void ToggleSideBar()
+    public void OnSideBarVisibleChanged()
     {
+        if (_Loading) return;
         if (SideBarVisible)
         {
-            WebView2Service.HideDiscordSideBar();
-            SideBarVisible = false;
+            WebView2Service.ShowDiscordSideBar();
         }
         else
         {
             WebView2Service.HideDiscordSideBar();
-            WebView2Service.ShowDiscordSideBar();
-            SideBarVisible = true;
+
         }
     }
 
@@ -169,9 +172,22 @@ public class MainWindowViewModel
         service.Show(null, vm, Settings, this);
     }
 
-    public async Task SendDiscordMessageText()
+    public async Task SendTextBoxMessage()
     {
-        await SendMessageToDiscord(CommandText);
+        if (CommandText.ToLower().StartsWith("click"))
+        {
+            var commandTextArray = CommandText.Split(" ");
+            if (commandTextArray.Length == 2 && int.TryParse(commandTextArray[1], out var intResult))
+            {
+                intResult--;
+                await WebView2Service.ClickButton(intResult);
+            }
+        }
+        else
+        {
+            await SendMessageToDiscord(CommandText);
+        }
+
         CommandText = string.Empty;
     }
 
