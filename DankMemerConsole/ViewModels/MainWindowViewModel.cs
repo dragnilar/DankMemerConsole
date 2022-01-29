@@ -28,6 +28,7 @@ public class MainWindowViewModel
     public virtual int SnakeEyesBetAmount { get; set;}
     public virtual int ScratchBetAmount { get; set;}
     public virtual int WithDrawAmount { get; set; }
+    public virtual string CommandText { get; set; }
     public DankMemerConsoleSettings Settings { get; set; }
     protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
 
@@ -168,6 +169,12 @@ public class MainWindowViewModel
         service.Show(null, vm, Settings, this);
     }
 
+    public async Task SendDiscordMessageText()
+    {
+        await SendMessageToDiscord(CommandText);
+        CommandText = string.Empty;
+    }
+
     public async Task Gamble(string command)
     {
         string commandText;
@@ -196,5 +203,11 @@ public class MainWindowViewModel
 
         await SendMessageToDiscord(commandText);
     }
+
+    public void FocusTextBox()
+    {
+        Messenger.Default.Send("FocusTextBoxCommandBox");
+    }
+
     public async Task Withdraw() => await SendMessageToDiscord(WithDrawAmount == 0 ? "pls with max" : $"pls with {WithDrawAmount}");
 }

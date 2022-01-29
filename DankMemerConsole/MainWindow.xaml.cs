@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DevExpress.Mvvm;
 using ModernWpf.Controls;
 
 namespace DankMemerConsole
@@ -26,6 +27,15 @@ namespace DankMemerConsole
         public MainWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<string>(this, OnTextFocusMessage);
+        }
+
+        private void OnTextFocusMessage(string obj)
+        {
+            if (obj == "FocusTextBoxCommandBox")
+            {
+                TextBoxCommandBox.Focus();
+            }
         }
     }
 }

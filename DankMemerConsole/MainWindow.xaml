@@ -34,6 +34,7 @@
         </DataTemplate>
     </Window.Resources>
     <dxmvvm:Interaction.Behaviors>
+        <dxmvvm:KeyToCommand Command="{Binding FocusTextBoxCommand}" KeyGesture="CTRL+T" />
         <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
         <dxmvvm:WindowService ViewTemplate="{StaticResource SettingsTemplate}">
             <dxmvvm:WindowService.WindowStyle>
@@ -58,6 +59,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="60" />
@@ -211,13 +214,23 @@
                 </dxmvvm:Interaction.Behaviors>
             </wpf:WebView2>
         </Border>
+        <TextBox
+            Name="TextBoxCommandBox"
+            Grid.Row="9"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            Text="{Binding CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <dxmvvm:Interaction.Behaviors>
+                <dxmvvm:KeyToCommand Command="{Binding SendDiscordMessageTextCommand}" KeyGesture="Enter" />
+            </dxmvvm:Interaction.Behaviors>
+        </TextBox>
         <TextBlock
-            Grid.Row="8"
+            Grid.Row="10"
             Grid.Column="3"
             HorizontalAlignment="Center"
             Text="Quick Commands" />
         <Border
-            Grid.Row="9"
+            Grid.Row="11"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BorderBrush="Green"
