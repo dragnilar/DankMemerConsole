@@ -78,6 +78,7 @@
             Name="StackPanelBrowserButtons"
             Grid.Row="2"
             Grid.Column="1"
+            Grid.ColumnSpan="4"
             Orientation="Horizontal">
             <Button
                 Name="ButtonLogin"
@@ -85,7 +86,7 @@
                 Height="32"
                 Background="Transparent"
                 Command="{Binding InjectAPICommand}"
-                ToolTip="Start integration and inject scripts into Discord. This will also navigate to your most recently registered channel. If you leave discord, you will need to re-use this to re-inject the integration scripts.">
+                ToolTip="Start integration and inject scripts into Discord. This will also navigate to your most recently registered channel the first time you use this, after each app startup. If you leave discord, you will need to re-use this to re-inject the integration scripts. You may need to send at least one message in Discord for the integration to update its authorization token.">
                 <Image Source="{FluentIconSource Key=NoteAdd_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
@@ -96,7 +97,7 @@
                 Background="Transparent"
                 Command="{Binding RegisterChannelCommand}"
                 IsEnabled="{Binding LoggedIntoDiscord}"
-                ToolTip="Register the current channel in Discord as your channel to use the Dank Memer integration">
+                ToolTip="Register the current channel in Discord as your channel to use the Dank Memer integration. This will also update the default channel that you are taken to when you use the script injection initially.">
                 <Image Source="{FluentIconSource Key=CalendarEdit_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
@@ -104,67 +105,16 @@
                 Width="32"
                 Height="32"
                 Background="Transparent"
-                Command="{Binding GoBackwardCommand}"
-                ToolTip="Go back in browser history">
-                <Image Source="{FluentIconSource Key=ArrowLeft_20_Regular, Brush=Green}" />
-            </Button>
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Width="32"
-                Height="32"
-                Background="Transparent"
-                Command="{Binding GoForwardCommand}"
-                ToolTip="Go forward in browser history">
-                <Image Source="{FluentIconSource Key=ArrowRight_20_Regular, Brush=Green}" />
-            </Button>
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Width="32"
-                Height="32"
-                Background="Transparent"
                 Command="{Binding RefreshCommand}"
-                ToolTip="Refresh page">
+                ToolTip="Refreshes the discord page; if you use this you will need to re-inject scripts.">
                 <Image Source="{FluentIconSource Key=ArrowClockwise_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Width="32"
-                Height="32"
-                Background="Transparent"
-                Command="{Binding GoHomeCommand}"
-                ToolTip="Return to discord.com">
-                <Image Source="{FluentIconSource Key=Home_20_Regular, Brush=Green}" />
-            </Button>
-            <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Width="32"
-                Height="32"
-                Background="Transparent"
-                Command="{Binding WebView2NavigateCommand}"
-                ToolTip="Navigate to site in address bar">
-                <Image Source="{FluentIconSource Key=CaretRight_24_Regular, Brush=Green}" />
-            </Button>
-        </WrapPanel>
-        <TextBox
-            Name="TextBoxAddressBar"
-            Grid.Row="2"
-            Grid.Column="2"
-            Grid.ColumnSpan="2"
-            Text="{Binding AddressBarUrl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <dxmvvm:Interaction.Behaviors>
-                <dxmvvm:KeyToCommand Command="{Binding WebView2NavigateCommand}" KeyGesture="Enter" />
-            </dxmvvm:Interaction.Behaviors>
-        </TextBox>
-        <TextBox
-            Name="TextBoxTimer"
-            Grid.Row="2"
-            Grid.Column="4"
-            IsReadOnly="True"
-            Text="{Binding TimerValue}" />
-        <StackPanel
-            Grid.Row="2"
-            Grid.Column="5"
-            Orientation="Horizontal">
+            <TextBox
+                Name="TextBoxTimer"
+                Width="300"
+                IsReadOnly="True"
+                Text="{Binding TimerValue}" />
             <Button
                 Width="32"
                 Height="32"
@@ -203,7 +153,8 @@
                 ToolTip="Clear All Cookies">
                 <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
             </Button>
-        </StackPanel>
+        </WrapPanel>
+
         <Separator
             Grid.Row="3"
             Grid.Column="0"

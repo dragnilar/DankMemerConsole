@@ -26,7 +26,6 @@ public class MainWindowViewModel
     }
 
     public virtual bool LoggedIntoDiscord { get; set; }
-    public virtual string AddressBarUrl { get; set; }
     public virtual string CommandText { get; set; }
     public virtual string TimerValue { get; set; }
     public DankMemerConsoleSettings Settings { get; set; }
@@ -35,23 +34,21 @@ public class MainWindowViewModel
     public void Loaded()
     {
         _Loading = true;
-        AddressBarUrl = WebView2Service.GetCurrentUrl();
         SideBarVisible = true;
         TimerValue = "No Timer Running";
         _Loading = false;
     }
 
-
-
-
     public void InjectAPI()
     {
-        WebView2Service.Navigate(!string.IsNullOrWhiteSpace(Settings.DankChannelUrl)
-            ? Settings.DankChannelUrl
-            : "https://discord.com/channels/@me");
+        if (!LoggedIntoDiscord)
+        {
+            WebView2Service.Navigate(!string.IsNullOrWhiteSpace(Settings.DankChannelUrl)
+                ? Settings.DankChannelUrl
+                : "https://discord.com/channels/@me");
+        }
         var registerResult = WebView2Service.RegisterSelfBotApi();
         var registerOtherScriptsResult = WebView2Service.RegisterOtherScripts();
-        AddressBarUrl = Settings.DankChannelUrl;
         nLogger.Log(LogLevel.Info, $"Attempt to register api result: {registerResult}\n" +
                                    $"Attempt to register other scripts result: {registerOtherScriptsResult}");
         LoggedIntoDiscord = true;
@@ -92,35 +89,10 @@ public class MainWindowViewModel
         }
     }
 
-    public bool CanGoForward()
-    {
-        return WebView2Service != null && WebView2Service.CanGoForward();
-    }
-
-    public void GoForward()
-    {
-        WebView2Service.GoForward();
-    }
-
-    public bool CanGoBackward()
-    {
-        return WebView2Service != null && WebView2Service.CanGoBackward();
-    }
-
-    public void GoBackward()
-    {
-        WebView2Service.GoBackward();
-    }
 
     public void Refresh()
     {
         WebView2Service.Refresh();
-    }
-
-    public void GoHome()
-    {
-        WebView2Service.Navigate("https://www.discord.com");
-        AddressBarUrl = WebView2Service.GetCurrentUrl();
     }
 
     public void ClearCookies()
@@ -132,19 +104,6 @@ public class MainWindowViewModel
     {
         var result = await WebView2Service.SendDiscordMessage(text);
         nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
-    }
-
-    public void WebView2Navigate(string url)
-    {
-        if (string.IsNullOrWhiteSpace(url))
-        {
-            WebView2Service.Navigate(AddressBarUrl);
-        }
-        else
-        {
-            WebView2Service.Navigate(url);
-            AddressBarUrl = url;
-        }
     }
 
     public void ShowSettings()
@@ -237,7 +196,8 @@ public class MainWindowViewModel
 
     private void Timer_Tick(object sender, EventArgs e)
     {
-        TimerValue = $"Timer: {DateTime.Now.ToString("HH:m:s tt")} - Started: {_timerStart.ToString("HH:m:s tt")}";
+        var elapsedTime = DateTime.Now - _timerStart;
+        TimerValue = $"Elapsed: {elapsedTime.ToString("hh\\:mm\\:ss")} - Started: {_timerStart.ToString("HH:mm:ss tt")}";
 
     }
 
