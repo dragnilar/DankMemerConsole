@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using DankMemerConsole.Constants;
+using DankMemerConsole.Messages;
 using DankMemerConsole.Services;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
@@ -37,6 +39,15 @@ public class MainWindowViewModel
         SideBarVisible = true;
         TimerValue = "No Timer Running";
         _Loading = false;
+        Messenger.Default.Register<Tuple<string, string>>(this, OnDankMessage);
+    }
+
+    private void OnDankMessage(Tuple<string, string> obj)
+    {
+        if (obj.Item1 == "DankMessage")
+        {
+            SendDankMessage(obj.Item2);
+        }
     }
 
     public void InjectScripts()
@@ -71,6 +82,17 @@ public class MainWindowViewModel
         }
     }
 
+    public async Task SendMessageToDiscord(string text)
+    {
+        var result = await WebView2Service.SendDiscordMessage(text).ConfigureAwait(false);
+        nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
+        if (result.ToLower() == "finished")
+        {
+            Thread.Sleep(500);
+            FocusTextBox();
+        }
+    }
+
     public void OnSideBarVisibleChanged()
     {
         if (_Loading) return;
@@ -94,17 +116,6 @@ public class MainWindowViewModel
     public void ClearCookies()
     {
         WebView2Service.WebView2.CoreWebView2.CookieManager.DeleteAllCookies();
-    }
-
-    public async Task SendMessageToDiscord(string text)
-    {
-        var result = await WebView2Service.SendDiscordMessage(text).ConfigureAwait(false);
-        nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
-        if (result.ToLower() == "finished")
-        {
-            Thread.Sleep(500);
-            FocusTextBox();
-        }
     }
 
 
@@ -136,6 +147,11 @@ public class MainWindowViewModel
         else
         {
             await SendMessageToDiscord(CommandText);
+        }
+
+        if (CoolDownCommandNames.CommandNames.Contains(CommandText))
+        {
+            Messenger.Default.Send(new CooldownMessage(CommandText));
         }
 
         CommandText = string.Empty;

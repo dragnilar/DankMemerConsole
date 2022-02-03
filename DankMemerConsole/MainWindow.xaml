@@ -2,6 +2,7 @@
     x:Class="DankMemerConsole.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customControls="clr-namespace:DankMemerConsole.CustomControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:local="clr-namespace:DankMemerConsole"
@@ -200,57 +201,44 @@
             BorderThickness="1"
             CornerRadius="3">
             <WrapPanel ItemHeight="40" Orientation="Horizontal">
-                <Button
-                    Name="ButtonBeg"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls beg"
+                <customControls:DankButton
                     Content="pls beg"
+                    CoolDown="25"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonSearch"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls search"
+                <customControls:DankButton
                     Content="pls search"
+                    CoolDown="15"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls fish"
+                <customControls:DankButton
                     Content="pls fish"
+                    CoolDown="25"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls hunt"
+                <customControls:DankButton
                     Content="pls hunt"
+                    CoolDown="25"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls dig"
+                <customControls:DankButton
                     Content="pls dig"
+                    CoolDown="25"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonCrime"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls crime"
+                <customControls:DankButton
                     Content="pls crime"
+                    CoolDown="15"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonHighLow"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls highlow"
-                    Content="pls highlow"
+                <customControls:DankButton
+                    Content="pls hl"
+                    CoolDown="15"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonPM"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls pm"
+                <customControls:DankButton
                     Content="pls pm"
+                    CoolDown="20"
                     IsEnabled="{Binding LoggedIntoDiscord}" />
                 <Separator Width="15" Visibility="Hidden" />
                 <ui:DropDownButton
