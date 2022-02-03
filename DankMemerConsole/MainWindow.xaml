@@ -66,13 +66,13 @@
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="20" />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
         <WrapPanel
             Name="StackPanelBrowserButtons"
@@ -166,8 +166,8 @@
             Name="BorderWebView2Border"
             Grid.Row="4"
             Grid.RowSpan="4"
-            Grid.Column="0"
-            Grid.ColumnSpan="7"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
             BorderBrush="Green"
             BorderThickness="2"
             CornerRadius="2">
@@ -294,12 +294,30 @@
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
                 <Separator Width="15" Visibility="Hidden" />
-                <Button
-                    Name="ButtonStream"
-                    Command="{Binding SendDankMessageCommand}"
-                    CommandParameter="pls stream"
-                    Content="pls stream"
-                    IsEnabled="{Binding LoggedIntoDiscord}" />
+                <ui:DropDownButton
+                    Background="#202c22"
+                    Content="pls activities"
+                    IsEnabled="{Binding LoggedIntoDiscord}">
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout>
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls work"
+                                Header="work" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls stream"
+                                Header="pls stream" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls adventure"
+                                Header="pls adventure" />
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
                 <Separator Width="15" Visibility="Hidden" />
                 <ui:DropDownButton
                     Background="#202c22"
@@ -392,11 +410,6 @@
                     IsEnabled="{Binding LoggedIntoDiscord}">
                     <ui:DropDownButton.Flyout>
                         <ui:MenuFlyout>
-                            <MenuItem
-                                Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls work"
-                                Header="work" />
                             <MenuItem
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
