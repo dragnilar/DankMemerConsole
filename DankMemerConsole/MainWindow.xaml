@@ -81,12 +81,12 @@
             Grid.ColumnSpan="4"
             Orientation="Horizontal">
             <Button
-                Name="ButtonLogin"
+                Name="ButtonInjectScripts"
                 Width="32"
                 Height="32"
                 Background="Transparent"
-                Command="{Binding InjectAPICommand}"
-                ToolTip="Start integration and inject scripts into Discord. This will also navigate to your most recently registered channel the first time you use this, after each app startup. If you leave discord, you will need to re-use this to re-inject the integration scripts. You may need to send at least one message in Discord for the integration to update its authorization token.">
+                Command="{Binding InjectScriptsCommand}"
+                ToolTip="Starts integration and injects necessary scripts into Discord. If you refresh the page, you will need to re-use this command since the script will get flushed when the browser refreshes. Note that this automatically navigates you to your most recently registered Discord Channel on the first usage.">
                 <Image Source="{FluentIconSource Key=NoteAdd_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
@@ -97,7 +97,7 @@
                 Background="Transparent"
                 Command="{Binding RegisterChannelCommand}"
                 IsEnabled="{Binding LoggedIntoDiscord}"
-                ToolTip="Register the current channel in Discord as your channel to use the Dank Memer integration. This will also update the default channel that you are taken to when you use the script injection initially.">
+                ToolTip="Register the current channel in Discord as your channel to navigate to by default when you use the script injection.">
                 <Image Source="{FluentIconSource Key=CalendarEdit_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />

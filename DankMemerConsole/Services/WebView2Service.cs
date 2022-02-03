@@ -1,16 +1,21 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using DankMemerConsole.Properties;
+using DevExpress.Mvvm;
 using DevExpress.Mvvm.UI;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace DankMemerConsole.Services;
 
 public class WebView2Service : ServiceBase, IWebView2Service
 {
     public WebView2 WebView2 => (WebView2) AssociatedObject;
+    private InputSimulator InputSimulator = new InputSimulator();
 
     public void Navigate(string url)
     {
@@ -34,24 +39,24 @@ public class WebView2Service : ServiceBase, IWebView2Service
 
     public async Task<string> SendDiscordMessage(string message)
     {
-        var script = $"api.sendMessage(cid, '{message}')";
-        var result = await SendJavaScript(script);
-        return result;
+        var success = false;
+        await Dispatcher.InvokeAsync(() =>
+        {
+            WebView2.Focus();
+            if (WebView2.IsFocused)
+            {
+                InputSimulator.Keyboard.TextEntry(message);
+                InputSimulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                success = true;
+            }
+
+
+        });
+        return success ? "Finished" : "Failed";
+
     }
 
-    public async Task<string> RegisterSelfBotApi()
-    {
-        var result = await SendJavaScript(Resources.DiscordSelfBotAPI);
-        return result;
-    }
-
-    public async Task<string> RegisterChannel()
-    {
-        var result = await SendJavaScript("id();");
-        return result;
-    }
-
-    public async Task<string> RegisterOtherScripts()
+    public async Task<string> RegisterScripts()
     {
         var getElementByXpathResult = await SendJavaScript(Resources.GetElementsByXPath);
         var toggleSideBarScriptResult = await SendJavaScript(Resources.DiscordFunctions);

@@ -39,7 +39,7 @@ public class MainWindowViewModel
         _Loading = false;
     }
 
-    public void InjectAPI()
+    public void InjectScripts()
     {
         if (!LoggedIntoDiscord)
         {
@@ -47,19 +47,15 @@ public class MainWindowViewModel
                 ? Settings.DankChannelUrl
                 : "https://discord.com/channels/@me");
         }
-        var registerResult = WebView2Service.RegisterSelfBotApi();
-        var registerOtherScriptsResult = WebView2Service.RegisterOtherScripts();
-        nLogger.Log(LogLevel.Info, $"Attempt to register api result: {registerResult}\n" +
-                                   $"Attempt to register other scripts result: {registerOtherScriptsResult}");
+        var registerOtherScriptsResult = WebView2Service.RegisterScripts();
+        nLogger.Log(LogLevel.Info, $"Attempt to register scripts result: {registerOtherScriptsResult}");
         LoggedIntoDiscord = true;
     }
 
     public void RegisterChannel()
     {
-        var channelRegisterResult = WebView2Service.RegisterChannel();
         Settings.DankChannelUrl = WebView2Service.GetCurrentUrl();
         Settings.Save();
-        nLogger.Log(LogLevel.Info, $"Attempt to register channel result: {channelRegisterResult}");
         nLogger.Log(LogLevel.Info, $"Set Dank Channel URL to {Settings.DankChannelUrl}");
     }
 
@@ -102,9 +98,15 @@ public class MainWindowViewModel
 
     public async Task SendMessageToDiscord(string text)
     {
-        var result = await WebView2Service.SendDiscordMessage(text);
+        var result = await WebView2Service.SendDiscordMessage(text).ConfigureAwait(false);
         nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
+        if (result.ToLower() == "finished")
+        {
+            Thread.Sleep(500);
+            FocusTextBox();
+        }
     }
+
 
     public void ShowSettings()
     {
@@ -122,10 +124,13 @@ public class MainWindowViewModel
             if (commandTextArray.Length >= 2 && int.TryParse(commandTextArray[1], out var intResult))
             {
                 if (commandTextArray.Length >= 3 && int.TryParse(commandTextArray[2], out var messageIndexResult))
-                {
                     await WebView2Service.ClickButton(intResult, messageIndexResult);
-                }
+
                 await WebView2Service.ClickButton(intResult);
+            }
+            else
+            {
+                await WebView2Service.ClickButton(1);
             }
         }
         else

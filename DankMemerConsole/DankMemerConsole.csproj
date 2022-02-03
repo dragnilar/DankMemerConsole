@@ -18,6 +18,7 @@
 	<ItemGroup>
 	  <PackageReference Include="DevExpressMvvm" Version="21.1.5" />
 	  <PackageReference Include="FluentSystemIconsForWPF" Version="1.0.1" />
+	  <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
 	  <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1072.54" />
 	  <PackageReference Include="ModernWpfUis" Version="1.4.0" />
 	  <PackageReference Include="NLog" Version="4.7.13" />
@@ -50,9 +51,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="JS\DiscordSelfBotAPI.js">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
 	  <None Update="NLog.config">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

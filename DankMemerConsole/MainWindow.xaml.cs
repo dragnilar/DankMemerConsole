@@ -34,7 +34,10 @@ namespace DankMemerConsole
         {
             if (obj == "FocusTextBoxCommandBox")
             {
-                TextBoxCommandBox.Focus();
+                Dispatcher.BeginInvoke(() =>
+                {
+                    TextBoxCommandBox.Focus();
+                });
             }
         }
     }

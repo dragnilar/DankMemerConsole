@@ -85,27 +85,6 @@ namespace DankMemerConsole.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {
-        ///    /* This is a discord self bot script that was developed by rigwild
-        ///     * All credit goes to rigwild for this script
-        ///     * Source: https://github.com/rigwild/discord-self-bot-console
-        ///     */
-        ///    var delay = ms =&gt; new Promise(res =&gt; setTimeout(res, ms));
-        ///    // prettier-ignore
-        ///    var qs = obj =&gt; Object.entries(obj).map(([k, v]) =&gt; `${k}=${v}`).join(&quot;&amp;&quot;);
-        ///
-        ///    const apiCall = (apiPath, body, method = &quot;GET&quot;) =&gt; {
-        ///        if (!authHeader)
-        ///            throw new Error(
-        ///                &quot;The aut [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DiscordSelfBotAPI {
-            get {
-                return ResourceManager.GetString("DiscordSelfBotAPI", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to function getElementsByXPath(xpath, parent) {
         ///    let results = [];
         ///    let query = document.evaluate(xpath, parent || document,

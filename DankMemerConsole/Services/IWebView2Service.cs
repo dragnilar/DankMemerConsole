@@ -9,9 +9,7 @@ public interface IWebView2Service
     public void Navigate(string url);
     public Task<string> SendJavaScript(string script);
     public Task<string> SendDiscordMessage(string message);
-    public Task<string> RegisterSelfBotApi();
-    public Task<string> RegisterChannel();
-    public Task<string> RegisterOtherScripts();
+    public Task<string> RegisterScripts();
     public Task<string> HideDiscordSideBar();
     public Task<string> ShowDiscordSideBar();
     public Task ClickButton(int buttonIndex, int messageIndex = 1);
