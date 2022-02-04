@@ -7,6 +7,7 @@
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>pepe.ico</ApplicationIcon>
 		<Platforms>x64</Platforms>
+		<DebugType>embedded</DebugType>
 	</PropertyGroup>
 	
 	<ItemGroup>
