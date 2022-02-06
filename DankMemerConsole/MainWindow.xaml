@@ -14,8 +14,8 @@
     xmlns:views="clr-namespace:DankMemerConsole.Views"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
-    MinWidth="1350"
-    MinHeight="950"
+    MinWidth="675"
+    MinHeight="945"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
     ui:ThemeManager.IsThemeAware="True"
     ui:WindowHelper.FixMaximizedWindow="True"
@@ -36,6 +36,9 @@
     </Window.Resources>
     <dxmvvm:Interaction.Behaviors>
         <dxmvvm:KeyToCommand Command="{Binding FocusTextBoxCommand}" KeyGesture="CTRL+T" />
+        <dxmvvm:KeyToCommand Command="{Binding FocusWebView2Command}" KeyGesture="CTRL+K" />
+        <dxmvvm:KeyToCommand Command="{Binding StartTimerCommand}" KeyGesture="CTRL+M" />
+        <dxmvvm:KeyToCommand Command="{Binding InjectScriptsCommand}" KeyGesture="CTRL+I" />
         <dxmvvm:EventToCommand Command="{Binding LoadedCommand}" EventName="Loaded" />
         <dxmvvm:WindowService ViewTemplate="{StaticResource SettingsTemplate}">
             <dxmvvm:WindowService.WindowStyle>
@@ -87,7 +90,7 @@
                 Height="32"
                 Background="Transparent"
                 Command="{Binding InjectScriptsCommand}"
-                ToolTip="Starts integration and injects necessary scripts into Discord. If you refresh the page, you will need to re-use this command since the script will get flushed when the browser refreshes. Note that this automatically navigates you to your most recently registered Discord Channel on the first usage.">
+                ToolTip="Starts integration and injects necessary scripts into Discord. If you refresh the page, you will need to re-use this command since the script will get flushed when the browser refreshes. Note that this automatically navigates you to your most recently registered Discord Channel on the first usage. HotKey: CTRL+I">
                 <Image Source="{FluentIconSource Key=NoteAdd_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
@@ -122,7 +125,7 @@
                 HorizontalAlignment="Left"
                 Background="Transparent"
                 Command="{Binding StartTimerCommand}"
-                ToolTip="Start /Stop Stopwatch Timer">
+                ToolTip="Start /Stop Stopwatch Timer; Hot Key: CTRL+M">
                 <Image Source="{FluentIconSource Key=Timer10_24_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
@@ -145,17 +148,7 @@
                 OnContent="Show Sidebar"
                 ToolTip="Shows or hides the side bar in Discord (the server / channel list on the left side)" />
             <Separator Width="15" Visibility="Hidden" />
-            <Button
-                Width="32"
-                Height="32"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Command="{Binding ClearCookiesCommand}"
-                ToolTip="Clear All Cookies">
-                <Image Source="{FluentIconSource Key=Cookies_20_Regular, Brush=Green}" />
-            </Button>
         </WrapPanel>
-
         <Separator
             Grid.Row="3"
             Grid.Column="0"
@@ -501,13 +494,28 @@
                             <MenuItem
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls sell fish"
-                                Header="fish" />
+                                CommandParameter="pls sell garbage"
+                                Header="garbage" />
                             <MenuItem
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls sell garbage"
-                                Header="garbage" />
+                                CommandParameter="pls sell skunk"
+                                Header="skunk" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell rabbit"
+                                Header="rabbit" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell worm"
+                                Header="worm" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls sell fish"
+                                Header="fish" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
@@ -533,6 +541,5 @@
                 </ui:DropDownButton>
             </WrapPanel>
         </Border>
-        <ResizeGrip Grid.Row="13" Grid.Column="6" />
     </Grid>
 </Window>

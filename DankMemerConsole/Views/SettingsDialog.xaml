@@ -33,10 +33,10 @@
             VerticalAlignment="Stretch">
             <ui:NumberBox
                 Header="Gamble Amount"
-                LargeChange="1000"
+                LargeChange="100000"
                 Maximum="250000"
                 Minimum="1000"
-                SmallChange="100"
+                SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding GambleBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
@@ -49,34 +49,34 @@
                 Value="{Binding SlotBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Bj Amount"
-                LargeChange="1000"
+                LargeChange="100000"
                 Maximum="250000"
                 Minimum="1000"
-                SmallChange="100"
+                SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding BjBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Snake Eyes Amount"
-                LargeChange="1000"
+                LargeChange="100000"
                 Maximum="250000"
                 Minimum="1000"
-                SmallChange="100"
+                SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding SnakeEyesBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Scratch Amount"
-                LargeChange="1000"
+                LargeChange="100000"
                 Maximum="250000"
                 Minimum="1000"
-                SmallChange="100"
+                SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding ScratchBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Withdraw Amount (Set to zero for max)"
-                LargeChange="1000"
+                LargeChange="100000"
                 Maximum="99999999"
                 Minimum="0"
-                SmallChange="100"
+                SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
                 Value="{Binding WithDrawAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox

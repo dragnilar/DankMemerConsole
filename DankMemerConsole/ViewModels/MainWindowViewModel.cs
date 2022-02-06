@@ -194,6 +194,11 @@ public class MainWindowViewModel
         Messenger.Default.Send("FocusTextBoxCommandBox");
     }
 
+    public void FocusWebView2()
+    {
+        WebView2Service.WebView2.Focus();
+    }
+
     public async void StartTimer()
     {
         if (!_timerRunning)
