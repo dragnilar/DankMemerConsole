@@ -135,7 +135,7 @@ App window at smallest size with the sidebar and member lists in Discord hidden:
 
 ### Can I get banned from Discord for using this?
 
-- Again, I do not know. However if you are concerned, be cautious and don't use the program. Please note that I cannot be held responsible for happens to you on Discord, as you probably are already aware.
+- Again, I do not know. However if you are concerned, be cautious and don't use the program. Please note that I cannot be held responsible for what happens to you on Discord, as you probably are already aware.
 
 
 
