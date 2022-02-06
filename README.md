@@ -1,18 +1,37 @@
 # DankMemerConsole
-This is a windows application for playing Dank Memer on Discord. It provides a number of convienences without going overboard in terms of automation / cheating.
+![Pepe2](DankMemerConsole/Images/pepe2.png)
+![Pepe1](DankMemerConsole/Images/pepe1.png)
 
-Ever wanted to play Dank Memer with just a mouse?
+This is a windows application for playing Dank Memer on Discord. It provides a number of convienences for playing Dank Memer as well as the standard Discord webpage.
 
-Well now you can, thanks to this program.
+## Features
 
-Don't like how the new Discord buttons / interactivity forces you to switch between keyboard and mouse?
+- Play Dank Memer (mostly) with either just your mouse or keyboard. No more having to switch back and forth constantly!
 
-Now you can play Dank Memer (almost) entirely with your keyboard thanks to this program.
+- Cooldown timers / alerts for the standard "grind" commands in Dank Memer.
 
-Need something to keep track of your cooldowns in Dank Memer? This app does that too.
+- Stopwatch timer for helping you keep track of long runing waits like pls work, pls stream, etc.
 
-Want a stop watch on screen for the sake of remembering when it's time to stream again? This app has that too.
+- Configurable gambling, lottery, withdraw amounts.
 
+- Hot keys for switching back and forth between the main app and the embedded Edge / WebView2 page that shows Discord.
+
+- Option to show/hide the channel list / side-bar in Discord.
+
+- Lighter on memory (mostly) than the regular Discord Windows client thanks to WPF + WebView 2 instead of Electron.
+
+
+## Screenshots
+
+Example of using the click command:
+
+![Screenshot1](DankMemerConsole/Images/screenshot1.png)
+
+![Screenshot2](DankMemerConsole/Images/screenshot2.png)
+
+App window at smallest size with the sidebar and member lists in Discord hidden:
+
+![Screenshot3](DankMemerConsole/Images/screenshot3.png)
 
 ## Usage
 
@@ -34,6 +53,40 @@ Want a stop watch on screen for the sake of remembering when it's time to stream
 
 9) When you use one of the "grind" commands for Dank Memer, you'll see the button for it light up red, indicating it is on cooldown. Once the cooldown expires, it will return to its normal state, indicating the cooldown has ended.
 
+
+## Hot Keys
+
+- **CTRL+T** = Focus the text box in the app
+- **CTRL+K** = Focus Discord / WebView2
+- **CTRL+M** = Start/Stop the timer
+- **CTRL+I** = Inject scripts (useful after doing a refresh)
+
+## Hot Keys For Discord / WebView 2
+
+- All standard Discord Webpage Hot Keys *should* work
+- **F5** to refresh web page
+- **F12** to open browser debugger
+
+## Known Issues / Limitations
+- The app uses keyboard emulation with the Windows OS to enter messages into Discord. Sometimes Windows moves faster than the app and you can end up with incomplete messages or other odd bugs. This is fairly easy to work around by clicking on Discord and then back in the rest of the app or clearing the message box in Discord and trying again. This is also amplified by the fact that the app uses WebView2 to display Discord inside of it. Microsoft is supposedly working on better keyboard integration with WebView 2, so this may be better resolved in the future.
+
+- The cooldown tracking for the app is not perfect since Dank Memer can lag in responses and/or other occurences. 
+
+- Slash commands are buggy and are not officially supported. You can try using them, but due to the fact that Discord has a slight delay when a slash is entered and before it knows you're using a slash command, a lot of times you'll end up sending a message or getting Discord giving you its "error" shake.
+  - Note: I do plan on adding support for slash commands *IF* Dank Memer switches over to using them in the coming months for the **pls** commands.
+
+- Sometimes the script injector button doesn't inject scripts properly when you use it to log into Discord. This is more or less a timing issue with the browser page loading and there really isn't much I can think of to work around it at the moment. The best thing I can suggest is just click the button again if you notice the click commands or the hide sidebar button not working.
+
+- Currently you can only clear the cache for WebView2 by either using the browser debugger or deleting the cache folder that gets made in the directory where you run the program.
+
+- I have not tested this app on any OS besides Windows 10/11. It SHOULD work on Windows 7 but I cannot guarantee it. 
+   - And no, I will not be making a version for Linux or Mac. 
+
+- Switching between Discord and the text box via CTRL+T / CTRL+K can sometimes result in focus problems. 
+    - For Discord, I have found hitting tab afterwards should put your cursor in the element that should be focused. Hitting CTRL+T a second time should focus the text box for the app if it doesn't focus the first time you hit CTRL+T.
+
+- While this program works surprisingly well, in my opinion, as an alternative to the Discord client for Windows, you should be aware that WebView2 has built in limitations versus the full Edge browser. To read up on said limitations, please see the [documentation on the differences between Edge and WebView2 here](https://docs.microsoft.com/en-us/microsoft-edge/webview2/concepts/browser-features).
+
 ## Techologies / Libraries Used
 
 - [WPF (Dot Net 6) for the Windows Application itself](https://docs.microsoft.com/en-us/dotnet/desktop/wpf/overview/?view=netdesktop-6.0)
@@ -52,19 +105,9 @@ Want a stop watch on screen for the sake of remembering when it's time to stream
   
 - [Fluent System Icons For WPF](https://www.nuget.org/packages/FluentSystemIconsForWPF/)
 
+- [Montserrat Font, the font Dank Memer's website uses](https://fonts.adobe.com/fonts/montserrat)
 
-## Known Issues
-- The app uses keyboard emulation with the Windows OS to enter messages into Discord. Sometimes Windows moves faster than the app and you can end up with incomplete messages or other odd bugs. This is fairly easy to work around by clicking on Discord and then back in the rest of the app or clearing the message box in Discord and trying again. This is also amplified by the fact that the app uses WebView2 to display Discord inside of it. Microsoft is supposedly working on better keyboard integration with WebView 2, so this may be better resolved in the future.
-
-- The cooldown tracking for the app is not perfect since Dank Memer can lag in responses and/or other occurences. 
-
-- Slash commands are buggy and are not officially supported. You can try using them, but due to the fact that Discord has a slight delay when a slash is entered and before it knows you're using a slash command, a lot of times you'll end up sending a message or getting Discord giving you its "error" shake. 
-
-- Sometimes the script injector button doesn't inject scripts properly when you use it to log into Discord. This is more or less a timing issue with the browser page loading and there really isn't much I can think of to work around it at the moment. The best thing I can suggest is just click the button again if you notice the click commands or the hide sidebar button not working.
-
-- There currently is no way to clear the cache from within the app (although you can clear cookies) without either using the broweser debugger (F12 on your keyboard or inspect element opens it up). Otherwise you will need to delete the cache folder that gets generated in the directory where you put the app.
-
-- I have not tested this app on any OS besides Windows 10/11. It SHOULD work on Windows 7 but I cannot guarantee it. And no, I will not be making a version for Linux or Mac. 
+- IDE: [Visual Studio 2022](https://visualstudio.microsoft.com/) w/ [ReSharper](https://www.jetbrains.com/resharper/). 
 
 ## Privacy Policy
 
@@ -73,4 +116,26 @@ Want a stop watch on screen for the sake of remembering when it's time to stream
 - Please note that Microsoft may collect telemetry and/or diagnostic information from Edge. You should review their privacy policies if you have questions about them.
 
 - Discord may collect information as well and you should obviously use your best judgement when chatting with people on Discord.
+
+
+## FAQ / Liabilities / Etc
+
+
+### Is this affiliated with Dank Memer's Developers?
+
+- No it is not and I am not sure of what Dank Memer's developers (I.E. Melmsey) think of using apps like this one. I have inquired but I have never received any response.
+
+### If the Dank Memer devs do not like this program, will you take down this repo?
+
+- Yes. If word gets back to them and they ultimately decide that people should only play Dank using the basic Discord setup, then I'll take down this repo.
+
+### Does this violate Dank Memer's TOS?
+
+- I do not know and as you can see from the above, if the developers do not approve of it, I will honor their wishes.
+
+### Can I get banned from Discord for using this?
+
+- Again, I do not know. However if you are concerned, be cautious and don't use the program. Please note that I cannot be held responsible for happens to you on Discord, as you probably are already aware.
+
+
 
