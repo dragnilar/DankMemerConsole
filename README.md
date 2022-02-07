@@ -67,6 +67,12 @@ App window at smallest size with the sidebar and member lists in Discord hidden:
 - **F5** to refresh web page
 - **F12** to open browser debugger
 
+## Note On Cooldowns
+
+- The cooldowns are currently using values that which assume you are a patreon subscriber for Dank Memer. If you are not a subscriber, I strongly encourage you to subscribe if you are interested in supporting Dank Memer's own development. 
+
+- I will implement a way to toggle between the non-sub and sub cooldown values soon.
+
 ## Known Issues / Limitations
 - The app uses keyboard emulation with the Windows OS to enter messages into Discord. Sometimes Windows moves faster than the app and you can end up with incomplete messages or other odd bugs. This is fairly easy to work around by clicking on Discord and then back in the rest of the app or clearing the message box in Discord and trying again. This is also amplified by the fact that the app uses WebView2 to display Discord inside of it. Microsoft is supposedly working on better keyboard integration with WebView 2, so this may be better resolved in the future.
 
