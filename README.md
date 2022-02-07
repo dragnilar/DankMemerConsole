@@ -2,7 +2,7 @@
 ![Pepe2](DankMemerConsole/Images/pepe2.png)
 ![Pepe1](DankMemerConsole/Images/pepe1.png)
 
-This is a windows application for playing Dank Memer on Discord. It provides a number of convienences for playing Dank Memer as well as the standard Discord webpage.
+This is a windows application for playing Dank Memer on Discord. It provides a number of convienences for playing Dank Memer as well as the standard Discord webpage. This app was made for fun in my spare time and also primarily to test out WebView2 (the embedded Edge Browser). This app demonstrates some of the things you can do with WebView2, including JavaScript interop, using keyboard emulation, modifying the DOM/web page and treating the website as part of your application (Hybrid App, basically). 
 
 ## Features
 
