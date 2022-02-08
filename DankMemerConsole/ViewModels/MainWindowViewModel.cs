@@ -88,7 +88,7 @@ public class MainWindowViewModel
         nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
         if (result.ToLower() == "finished")
         {
-            Thread.Sleep(500);
+            Thread.Sleep(Settings.KeyBoardDelay);
             FocusTextBox();
         }
     }
@@ -196,7 +196,7 @@ public class MainWindowViewModel
 
     public void FocusWebView2()
     {
-        WebView2Service.WebView2.Focus();
+       WebView2Service.FocusDiscord();
     }
 
     public async void StartTimer()

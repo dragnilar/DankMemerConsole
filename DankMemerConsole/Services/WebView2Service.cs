@@ -45,8 +45,7 @@ public class WebView2Service : ServiceBase, IWebView2Service
             WebView2.Focus();
             if (WebView2.IsFocused)
             {
-                InputSimulator.Keyboard.TextEntry(message);
-                InputSimulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                InputSimulator.Keyboard.TextEntry(message).KeyPress(VirtualKeyCode.RETURN);
                 success = true;
             }
 
@@ -74,6 +73,14 @@ public class WebView2Service : ServiceBase, IWebView2Service
     {
         var result = await SendJavaScript("ShowSideBar()");
         return result;
+    }
+
+    public void FocusDiscord()
+    {
+        if (!WebView2.IsFocused)
+        {
+            WebView2.Focus();
+        }
     }
 
     public string GetCurrentUrl()
@@ -112,10 +119,16 @@ public class WebView2Service : ServiceBase, IWebView2Service
         //index zero 
         if (buttonIndex > 0) buttonIndex--;
         //Message indexes start at index 2 from the bottom up in the message list
-        if (messageIndex > 0)
+        if (messageIndex >= 1)
+        {
             messageIndex++;
+        }
         else
+        {
             messageIndex = 2;
+        }
+ 
+        
 
         await SendJavaScript($"ClickButtons({buttonIndex},{messageIndex})");
     }

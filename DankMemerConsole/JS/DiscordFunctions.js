@@ -16,5 +16,9 @@ function HideSideBar() {
 function ClickButtons(buttonIndex, messageIndex = 2) {
     var lastMessage = $("ol li:nth-last-child("+messageIndex+")");
     var lastMessageButtons = lastMessage.find('button');
+    //If for some reason we entered a button index that exceeds number of buttons, click the last button by default.
+    if (buttonIndex > lastMessageButtons.length) {
+        buttonIndex = lastMessageButtons.length - 1;
+    }
     lastMessageButtons[buttonIndex].click();
 }

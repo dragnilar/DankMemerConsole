@@ -43,7 +43,7 @@
         <dxmvvm:WindowService ViewTemplate="{StaticResource SettingsTemplate}">
             <dxmvvm:WindowService.WindowStyle>
                 <Style TargetType="Window">
-                    <Setter Property="Height" Value="550" />
+                    <Setter Property="Height" Value="600" />
                     <Setter Property="Width" Value="350" />
                     <Setter Property="WindowStyle" Value="SingleBorderWindow" />
                     <Setter Property="Background" Value="#0b110c" />

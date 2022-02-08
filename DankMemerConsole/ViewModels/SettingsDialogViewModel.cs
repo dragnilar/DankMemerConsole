@@ -1,4 +1,5 @@
-﻿using DevExpress.Mvvm;
+﻿using System.Windows.Input;
+using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using NLog;
 
@@ -18,6 +19,7 @@ namespace DankMemerConsole.ViewModels
         public virtual int ScratchBetAmount { get; set; }
         public virtual int WithDrawAmount { get; set; }
         public virtual int LotteryAmount { get; set; }
+        public virtual int KeyBoardDelay { get; set; }
         protected ICurrentWindowService CurrentWindowService => this.GetService<ICurrentWindowService>();
 
         /// <summary>
@@ -49,6 +51,7 @@ namespace DankMemerConsole.ViewModels
             ScratchBetAmount = Settings.ScratchBetAmount;
             WithDrawAmount = Settings.WithDrawAmount;
             LotteryAmount = Settings.LotteryAmount;
+            KeyBoardDelay = Settings.KeyBoardDelay;
         }
 
 
@@ -62,6 +65,7 @@ namespace DankMemerConsole.ViewModels
             Settings.ScratchBetAmount = ScratchBetAmount;
             Settings.WithDrawAmount = WithDrawAmount;
             Settings.LotteryAmount = LotteryAmount;
+            Settings.KeyBoardDelay = KeyBoardDelay;
             Settings.Save();
             CurrentWindowService.Close();
         }

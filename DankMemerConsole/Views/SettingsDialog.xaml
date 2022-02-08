@@ -10,7 +10,7 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     xmlns:viewModels="clr-namespace:DankMemerConsole.ViewModels"
     Width="300"
-    Height="450"
+    Height="500"
     d:DataContext="{d:DesignInstance {x:Type viewModels:SettingsDialogViewModel}}"
     d:DesignHeight="500"
     d:DesignWidth="300"
@@ -38,6 +38,7 @@
                 Minimum="1000"
                 SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will bet when you use the gamble / bet button"
                 Value="{Binding GambleBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Slots Amount"
@@ -46,6 +47,7 @@
                 Minimum="1000"
                 SmallChange="100"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will bet when you use the slots button"
                 Value="{Binding SlotBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Bj Amount"
@@ -54,6 +56,7 @@
                 Minimum="1000"
                 SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will bet when you use the black jack button"
                 Value="{Binding BjBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Snake Eyes Amount"
@@ -62,6 +65,7 @@
                 Minimum="1000"
                 SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will bet when you use the snake eyes button"
                 Value="{Binding SnakeEyesBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Scratch Amount"
@@ -70,6 +74,7 @@
                 Minimum="1000"
                 SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will bet when you use the scratch button"
                 Value="{Binding ScratchBetAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Withdraw Amount (Set to zero for max)"
@@ -78,6 +83,7 @@
                 Minimum="0"
                 SmallChange="10000"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the amount you will withdraw when you use the withdraw command via the buttons"
                 Value="{Binding WithDrawAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Lottery Amount"
@@ -86,7 +92,17 @@
                 Minimum="1"
                 SmallChange="1"
                 SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the number of lottery tickets you will buy when you use the lotto button"
                 Value="{Binding LotteryAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ui:NumberBox
+                Header="Virtual Keyboard Delay (MS)"
+                LargeChange="100"
+                Maximum="5000"
+                Minimum="50"
+                SmallChange="10"
+                SpinButtonPlacementMode="Compact"
+                ToolTip="Sets the delay to wait for commands to be typed into discord by the keyboard simulator used by the program. Settings this too high will cause lag but setting it too low may cause the app to experience weird problems. Adjust this if you notice significant latency for commands to be typed into Discord."
+                Value="{Binding KeyBoardDelay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <Separator Height="25" Visibility="Hidden" />
             <Button
                 HorizontalAlignment="Stretch"
