@@ -47,15 +47,25 @@ App window at smallest size with the sidebar and member lists in Discord hidden:
 
 6) Start playing Dank Memer either using the buttons under the quick commands section or use the text box to enter commands.
 
-7) IF you are using the keyboard method with the text box, you can click buttons that the bot shows using the "click" command. To click a button other than the first one, enter click 2, 3, 4, etc.
-
-  a) Note that if you enter just "click", the program will attempt to click the first button in the most recent message in the current Discord channel.
-  b) If you enter "click 0 or click 1", you will be esentially doing the same as what is noted in a).
-  c) If you enter click with a button number that doesn't exist in a message (I.E. click 591925 3), the app will click the last available button.
+7) IF you are using the keyboard method with the text box, you can click buttons that the bot shows using the "click" command. See below for usage information
 
 8) If a button is not in the first message at the bottom of the message list, you need to enter the index of the message starting from the bottom (I.E. If the message is the second one up from the bottom in the chat, to click the first button in it, enter Click 1 2).
 
 9) When you use one of the "grind" commands for Dank Memer, you'll see the button for it light up red, indicating it is on cooldown. Once the cooldown expires, it will return to its normal state, indicating the cooldown has ended.
+
+## Click command usage
+
+- To click a button in a message, enter "click {button number from left to right - optional} {message index going up - optional}". 
+
+  - If you enter just "click" or "click 0" or "click 1", the program will attempt to click the first button in the most recent message in the current Discord channel.
+
+  - Example for button number: If a message has 3 buttons, and you want to click the middle one, you would enter click 2.
+
+  - Example for message index: The first message's index is always going to be the most recent message in the chat. If you want to click on a button in a message above that, you need to add the number of messages up above the first. So for example, if you are want to click the third message going up's third button, you would enter "click 3 3". 
+
+- If you enter click with a button number that doesn't exist in a message (I.E. click 591925 3), the app will click the last available button.
+
+- Finally, if you enter click and there is nothing to click on the message you specified, nothing will happen. 
 
 
 ## Hot Keys
