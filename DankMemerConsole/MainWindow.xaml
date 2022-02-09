@@ -14,8 +14,8 @@
     xmlns:views="clr-namespace:DankMemerConsole.Views"
     xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     Title="Dank Memer Console"
-    MinWidth="675"
-    MinHeight="945"
+    MinWidth="800"
+    MinHeight="950"
     d:DataContext="{d:DesignInstance {x:Type viewModels:MainWindowViewModel}}"
     ui:ThemeManager.IsThemeAware="True"
     ui:WindowHelper.FixMaximizedWindow="True"
@@ -71,6 +71,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition Width="0" />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -106,12 +108,34 @@
             </Button>
             <Separator Width="15" Visibility="Hidden" />
             <Button
+                Name="ButtonChangeDiscordFont"
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding ChangeDiscordFontCommand}"
+                IsEnabled="{Binding LoggedIntoDiscord}"
+                ToolTip="Changes the font of Discord to the Montserrat font (the font used by the Dank Memer site and this program).">
+                <Image Source="{FluentIconSource Key=TextFont_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonRefresh"
                 Width="32"
                 Height="32"
                 Background="Transparent"
                 Command="{Binding RefreshCommand}"
-                ToolTip="Refreshes the discord page; if you use this you will need to re-inject scripts.">
+                ToolTip="Refreshes the discord page; if you use this you will need to re-inject scripts. HotKey(s): F5 for regular refresh; CTRL+F5 for hard refresh">
                 <Image Source="{FluentIconSource Key=ArrowClockwise_20_Regular, Brush=Green}" />
+            </Button>
+            <Separator Width="15" Visibility="Hidden" />
+            <Button
+                Name="ButtonShowBrowserDebugger"
+                Width="32"
+                Height="32"
+                Background="Transparent"
+                Command="{Binding ShowDebuggerCommand}"
+                ToolTip="Opens the browser debugger / dev tools; HotKey: F12">
+                <Image Source="{FluentIconSource Key=Code_20_Regular, Brush=Green}" />
             </Button>
             <Separator Width="15" Visibility="Hidden" />
             <TextBox
@@ -119,6 +143,7 @@
                 Width="300"
                 IsReadOnly="True"
                 Text="{Binding TimerValue}" />
+            <Separator Width="15" Visibility="Hidden" />
             <Button
                 Width="32"
                 Height="32"
@@ -150,17 +175,26 @@
             <Separator Width="15" Visibility="Hidden" />
         </WrapPanel>
         <Separator
+            Name="SeparatorTop"
             Grid.Row="3"
             Grid.Column="0"
-            Grid.ColumnSpan="7"
+            Grid.ColumnSpan="9"
             Height="5"
             Background="Green"
             Foreground="Green" />
         <Border
-            Name="BorderWebView2Border"
+            Name="BorderLeftList"
             Grid.Row="4"
             Grid.RowSpan="4"
             Grid.Column="1"
+            BorderBrush="Green"
+            BorderThickness="2"
+            CornerRadius="2" />
+        <Border
+            Name="BorderWebView2Border"
+            Grid.Row="4"
+            Grid.RowSpan="4"
+            Grid.Column="3"
             Grid.ColumnSpan="5"
             BorderBrush="Green"
             BorderThickness="2"
@@ -175,7 +209,7 @@
             Name="TextBoxCommandBox"
             Grid.Row="9"
             Grid.Column="1"
-            Grid.ColumnSpan="5"
+            Grid.ColumnSpan="7"
             Text="{Binding CommandText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <dxmvvm:Interaction.Behaviors>
                 <dxmvvm:KeyToCommand Command="{Binding SendTextBoxMessageCommand}" KeyGesture="Enter" />
@@ -183,17 +217,19 @@
         </TextBox>
         <TextBlock
             Grid.Row="10"
-            Grid.Column="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="9"
             HorizontalAlignment="Center"
             Text="Quick Commands" />
         <Border
             Grid.Row="11"
             Grid.Column="1"
-            Grid.ColumnSpan="5"
+            Grid.ColumnSpan="7"
             BorderBrush="Green"
             BorderThickness="1"
             CornerRadius="3">
             <WrapPanel ItemHeight="40" Orientation="Horizontal">
+                <Separator Width="15" Visibility="Hidden" />
                 <customControls:DankButton
                     Content="pls beg"
                     CoolDown="25"
@@ -237,7 +273,7 @@
                 <ui:DropDownButton
                     Name="DropDownButtonGambling"
                     Background="#202c22"
-                    Content="pls gambles"
+                    Content="pls bets"
                     IsEnabled="{Binding LoggedIntoDiscord}">
                     <ui:DropDownButton.Flyout>
                         <ui:MenuFlyout>
@@ -277,7 +313,7 @@
                 <Separator Width="15" Visibility="Hidden" />
                 <ui:DropDownButton
                     Background="#202c22"
-                    Content="pls activities"
+                    Content="pls fun"
                     IsEnabled="{Binding LoggedIntoDiscord}">
                     <ui:DropDownButton.Flyout>
                         <ui:MenuFlyout>
@@ -290,12 +326,12 @@
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
                                 CommandParameter="pls stream"
-                                Header="pls stream" />
+                                Header="stream" />
                             <MenuItem
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
                                 CommandParameter="pls adventure"
-                                Header="pls adventure" />
+                                Header="adventure" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>
@@ -399,11 +435,6 @@
                             <MenuItem
                                 Background="#202c22"
                                 Command="{Binding SendDankMessageCommand}"
-                                CommandParameter="pls use jar"
-                                Header="jar" />
-                            <MenuItem
-                                Background="#202c22"
-                                Command="{Binding SendDankMessageCommand}"
                                 CommandParameter="pls daily"
                                 Header="daily" />
                             <MenuItem
@@ -466,6 +497,11 @@
                                 Command="{Binding SendDankMessageCommand}"
                                 CommandParameter="pls use cell"
                                 Header="cell" />
+                            <MenuItem
+                                Background="#202c22"
+                                Command="{Binding SendDankMessageCommand}"
+                                CommandParameter="pls use jar"
+                                Header="jar" />
                         </ui:MenuFlyout>
                     </ui:DropDownButton.Flyout>
                 </ui:DropDownButton>

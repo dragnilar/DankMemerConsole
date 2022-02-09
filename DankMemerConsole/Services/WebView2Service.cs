@@ -12,6 +12,10 @@ using WindowsInput.Native;
 
 namespace DankMemerConsole.Services;
 
+/// <summary>
+/// This is a service that provides functionality for interacting with a WebView2 control, it is an implementation of the IWebView2Service.
+/// This can be used in conjunction with a view model so that the view model can interact with WebView2 without having to hold a direct reference to WebView2.
+/// </summary>
 public class WebView2Service : ServiceBase, IWebView2Service
 {
     public WebView2 WebView2 => (WebView2) AssociatedObject;
@@ -75,6 +79,11 @@ public class WebView2Service : ServiceBase, IWebView2Service
         return result;
     }
 
+    public async Task ChangeDiscordFont()
+    {
+        await SendJavaScript("ChangeDiscordFont()");
+    }
+
     public void FocusDiscord()
     {
         if (!WebView2.IsFocused)
@@ -111,6 +120,11 @@ public class WebView2Service : ServiceBase, IWebView2Service
     public void Refresh()
     {
         WebView2?.Reload();
+    }
+
+    public void OpenBrowserDebugger()
+    {
+        WebView2.CoreWebView2.OpenDevToolsWindow();
     }
 
     public async Task ClickButton(int buttonIndex, int messageIndex = 1)

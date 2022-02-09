@@ -12,6 +12,9 @@ using NLog;
 
 namespace DankMemerConsole.ViewModels;
 
+/// <summary>
+/// View model for the main window in the program, the majority of application functionality passes through this view model
+/// </summary>
 public class MainWindowViewModel
 {
     private readonly Logger nLogger = LogManager.GetCurrentClassLogger();
@@ -59,7 +62,7 @@ public class MainWindowViewModel
                 : "https://discord.com/channels/@me");
         }
         var registerOtherScriptsResult = WebView2Service.RegisterScripts();
-        nLogger.Log(LogLevel.Info, $"Attempt to register scripts result: {registerOtherScriptsResult}");
+        nLogger.Log(LogLevel.Debug, $"Attempt to register scripts result: {registerOtherScriptsResult}");
         LoggedIntoDiscord = true;
     }
 
@@ -67,7 +70,7 @@ public class MainWindowViewModel
     {
         Settings.DankChannelUrl = WebView2Service.GetCurrentUrl();
         Settings.Save();
-        nLogger.Log(LogLevel.Info, $"Set Dank Channel URL to {Settings.DankChannelUrl}");
+        nLogger.Log(LogLevel.Debug, $"Set Dank Channel URL to {Settings.DankChannelUrl}");
     }
 
     public async void SendDankMessage(string commandText)
@@ -106,18 +109,6 @@ public class MainWindowViewModel
 
         }
     }
-
-
-    public void Refresh()
-    {
-        WebView2Service.Refresh();
-    }
-
-    public void ClearCookies()
-    {
-        WebView2Service.WebView2.CoreWebView2.CookieManager.DeleteAllCookies();
-    }
-
 
     public void ShowSettings()
     {
@@ -189,16 +180,6 @@ public class MainWindowViewModel
         await SendMessageToDiscord(commandText);
     }
 
-    public void FocusTextBox()
-    {
-        Messenger.Default.Send("FocusTextBoxCommandBox");
-    }
-
-    public void FocusWebView2()
-    {
-       WebView2Service.FocusDiscord();
-    }
-
     public async void StartTimer()
     {
         if (!_timerRunning)
@@ -228,4 +209,9 @@ public class MainWindowViewModel
     }
 
     public async Task Withdraw() => await SendMessageToDiscord(Settings.WithDrawAmount == 0 ? "pls with max" : $"pls with {Settings.WithDrawAmount}");
+    public void FocusTextBox() =>         Messenger.Default.Send("FocusTextBoxCommandBox");
+    public void FocusWebView2() =>        WebView2Service.FocusDiscord();
+    public async void ChangeDiscordFont() =>         await WebView2Service.ChangeDiscordFont();
+    public void Refresh() =>         WebView2Service.Refresh();
+    public void ShowDebugger() => WebView2Service.OpenBrowserDebugger();
 }

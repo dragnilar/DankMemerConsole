@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.POCO;
 using NLog;
@@ -32,6 +33,10 @@ namespace DankMemerConsole.ViewModels
             set => Settings = (DankMemerConsoleSettings)value;
         }
 
+        /// <summary>
+        /// Creates an instance of the view model, used for setting the view model on dependent services in parent view model.
+        /// </summary>
+        /// <returns>Instance of the SettingsDialog View Model</returns>
         public static SettingsDialogViewModel Create()
         {
             return ViewModelSource.Create(() => new SettingsDialogViewModel());
@@ -41,9 +46,11 @@ namespace DankMemerConsole.ViewModels
         {
         }
 
+        /// <summary>
+        /// Used when the view is loaded to set the settings on the view models' properties
+        /// </summary>
         public void Loaded()
         {
-            nLogger.Log(LogLevel.Info, "Loaded settings...");
             SlotBetAmount = Settings.SlotBetAmount;
             BjBetAmount = Settings.BjBetAmount;
             GambleBetAmount = Settings.GambleBetAmount;
@@ -55,19 +62,30 @@ namespace DankMemerConsole.ViewModels
         }
 
 
+        /// <summary>
+        /// Saves the settings for the program to its json configuration file
+        /// </summary>
         public void SaveSettings()
         {
-            nLogger.Log(LogLevel.Info, "Saving settings");
-            Settings.SlotBetAmount = SlotBetAmount;
-            Settings.BjBetAmount = BjBetAmount;
-            Settings.GambleBetAmount = GambleBetAmount;
-            Settings.SnakeEyesBetAmount = SnakeEyesBetAmount;
-            Settings.ScratchBetAmount = ScratchBetAmount;
-            Settings.WithDrawAmount = WithDrawAmount;
-            Settings.LotteryAmount = LotteryAmount;
-            Settings.KeyBoardDelay = KeyBoardDelay;
-            Settings.Save();
-            CurrentWindowService.Close();
+            try
+            {
+                nLogger.Log(LogLevel.Debug, "Saving settings");
+                Settings.SlotBetAmount = SlotBetAmount;
+                Settings.BjBetAmount = BjBetAmount;
+                Settings.GambleBetAmount = GambleBetAmount;
+                Settings.SnakeEyesBetAmount = SnakeEyesBetAmount;
+                Settings.ScratchBetAmount = ScratchBetAmount;
+                Settings.WithDrawAmount = WithDrawAmount;
+                Settings.LotteryAmount = LotteryAmount;
+                Settings.KeyBoardDelay = KeyBoardDelay;
+                Settings.Save();
+                CurrentWindowService.Close();
+            }
+            // ReSharper disable once CatchAllClause - too many possible I/O exceptions and/or potential DevExpress errors
+            catch (Exception e)
+            {
+                nLogger.Log(LogLevel.Error, $"Error saving settings: {e}");
+            }
         }
 
 

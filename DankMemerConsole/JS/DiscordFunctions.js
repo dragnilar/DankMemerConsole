@@ -22,3 +22,7 @@ function ClickButtons(buttonIndex, messageIndex = 2) {
     }
     lastMessageButtons[buttonIndex].click();
 }
+
+function ChangeDiscordFont(fontName = 'Montserrat') {
+    document.body.style.fontFamily = fontName;
+}
