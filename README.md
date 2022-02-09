@@ -49,6 +49,10 @@ App window at smallest size with the sidebar and member lists in Discord hidden:
 
 7) IF you are using the keyboard method with the text box, you can click buttons that the bot shows using the "click" command. To click a button other than the first one, enter click 2, 3, 4, etc.
 
+  a) Note that if you enter just "click", the program will attempt to click the first button in the most recent message in the current Discord channel.
+  b) If you enter "click 0 or click 1", you will be esentially doing the same as what is noted in a).
+  c) If you enter click with a button number that doesn't exist in a message (I.E. click 591925 3), the app will click the last available button.
+
 8) If a button is not in the first message at the bottom of the message list, you need to enter the index of the message starting from the bottom (I.E. If the message is the second one up from the bottom in the chat, to click the first button in it, enter Click 1 2).
 
 9) When you use one of the "grind" commands for Dank Memer, you'll see the button for it light up red, indicating it is on cooldown. Once the cooldown expires, it will return to its normal state, indicating the cooldown has ended.
@@ -75,6 +79,7 @@ App window at smallest size with the sidebar and member lists in Discord hidden:
 
 ## Known Issues / Limitations
 - The app uses keyboard emulation with the Windows OS to enter messages into Discord. Sometimes Windows moves faster than the app and you can end up with incomplete messages or other odd bugs. This is fairly easy to work around by clicking on Discord and then back in the rest of the app or clearing the message box in Discord and trying again. This is also amplified by the fact that the app uses WebView2 to display Discord inside of it. Microsoft is supposedly working on better keyboard integration with WebView 2, so this may be better resolved in the future.
+  - If you run into the above problem, you should also go into the settings menu and adjust the delay for the virtual keyboard. Setting it higher will cause a longer delay (for slower computers) or making it lower will decrease the delay (for faster computers). Please note that setting the value too low can potentially cause strange behavior and setting it too high will cause significant input lag.
 
 - The cooldown tracking for the app is not perfect since Dank Memer can lag in responses and/or other occurences. 
 
