@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
@@ -111,14 +112,9 @@ public class MainWindowViewModel
     {
         if (_Loading) return;
         if (SideBarVisible)
-        {
             WebView2Service.ShowDiscordSideBar();
-        }
         else
-        {
             WebView2Service.HideDiscordSideBar();
-
-        }
     }
 
     public void ShowSettings()
@@ -148,19 +144,39 @@ public class MainWindowViewModel
         }
         else if (CommandText.ToLower().StartsWith("/"))
         {
-             await SendSlashCommandToDiscord(CommandText);
+            await SendSlashCommandToDiscord(CommandText);
         }
         else
         {
-            await SendMessageToDiscord(CommandText);
+            await SendMessageToDiscord(await ProcessCooldownCommand_IfNecessary());
         }
 
-        if (CoolDownCommandNames.CommandNames.Contains(CommandText))
-        {
-            Messenger.Default.Send(new CooldownMessage(CommandText));
-        }
+
 
         CommandText = string.Empty;
+    }
+
+    private async Task<string> ProcessCooldownCommand_IfNecessary()
+    {
+        var commandText = CommandText;
+        var isCoolDownCommand = false;
+        await Task.Run(() =>
+        {
+            if (CoolDownCommandNames.AliasLookup.ContainsKey(CommandText))
+            {
+                var aliasMatch = CoolDownCommandNames.AliasLookup.FirstOrDefault(x => x.Key == CommandText);
+                commandText = aliasMatch.Value;
+                isCoolDownCommand = true;
+            }
+
+            if (CoolDownCommandNames.CommandNames.Contains(CommandText))
+            {
+                isCoolDownCommand = true;
+            }
+        });
+        if (isCoolDownCommand) Messenger.Default.Send(new CooldownMessage(commandText));
+
+        return commandText;
     }
 
     public async Task Gamble(string command)
@@ -195,7 +211,7 @@ public class MainWindowViewModel
         await SendMessageToDiscord(commandText);
     }
 
-    public async void StartTimer()
+    public void StartTimer()
     {
         if (!_timerRunning)
         {
