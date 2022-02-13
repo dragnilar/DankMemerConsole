@@ -96,10 +96,10 @@
                 Value="{Binding LotteryAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <ui:NumberBox
                 Header="Virtual Keyboard Delay (MS)"
-                LargeChange="100"
-                Maximum="5000"
-                Minimum="50"
-                SmallChange="10"
+                LargeChange="10"
+                Maximum="9999"
+                Minimum="1"
+                SmallChange="1"
                 SpinButtonPlacementMode="Compact"
                 ToolTip="Sets the delay to wait for commands to be typed into discord by the keyboard simulator used by the program. Settings this too high will cause lag but setting it too low may cause the app to experience weird problems. Adjust this if you notice significant latency for commands to be typed into Discord."
                 Value="{Binding KeyBoardDelay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
