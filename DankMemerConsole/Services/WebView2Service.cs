@@ -41,6 +41,54 @@ public class WebView2Service : ServiceBase, IWebView2Service
         return result;
     }
 
+    public async Task<string> SendDiscordSlashCommand(string slashCommand)
+    {
+        var success = false;
+        await Dispatcher.InvokeAsync(() =>
+        {
+            WebView2.Focus();
+            if (WebView2.IsFocused)
+            {
+                var commandWithoutSlash = slashCommand.Remove(0, 1);
+                var restOfCommandArray = commandWithoutSlash.Split(" ");
+                InputSimulator.Keyboard.TextEntry("/");
+                Thread.Sleep(50);
+                if (restOfCommandArray.Length > 1)
+                {
+                    for (int i = 0; i < restOfCommandArray.Length; i++)
+                    {
+                        if (!string.IsNullOrWhiteSpace(restOfCommandArray[i]))
+                        {
+                            if (i == 0)
+                            {
+                                InputSimulator.Keyboard.TextEntry(restOfCommandArray[i]).KeyDown(VirtualKeyCode.TAB)
+                                    .KeyDown(VirtualKeyCode.SPACE);
+                                Thread.Sleep(200);
+                            }
+                            else
+                            {
+                                InputSimulator.Keyboard.TextEntry(restOfCommandArray[i]).KeyDown(VirtualKeyCode.SPACE);
+                                Thread.Sleep(50);
+                            }
+
+                        }
+                    }
+                }
+                else
+                {
+                    InputSimulator.Keyboard.TextEntry(restOfCommandArray[0]).KeyDown(VirtualKeyCode.TAB)
+                        .KeyDown(VirtualKeyCode.RETURN);
+                }
+
+                Thread.Sleep(20);
+                InputSimulator.Keyboard.KeyDown(VirtualKeyCode.RETURN);
+
+                success = true;
+            }
+        });
+        return success ? "Finished" : "Failed";
+    }
+
     public async Task<string> SendDiscordMessage(string message)
     {
         var success = false;

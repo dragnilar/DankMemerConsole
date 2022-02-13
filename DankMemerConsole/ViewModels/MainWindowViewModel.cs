@@ -42,14 +42,14 @@ public class MainWindowViewModel
         SideBarVisible = true;
         TimerValue = "No Timer Running";
         _Loading = false;
-        Messenger.Default.Register<Tuple<string, string>>(this, OnDankMessage);
+        Messenger.Default.Register<(string messageType, string messageContent)>(this, OnDankMessage);
     }
 
-    private void OnDankMessage(Tuple<string, string> obj)
+    private void OnDankMessage((string messageType, string messageContent) messageTuple)
     {
-        if (obj.Item1 == "DankMessage")
+        if (messageTuple.messageType == "DankMessage")
         {
-            SendDankMessage(obj.Item2);
+            SendDankMessage(messageTuple.Item2);
         }
     }
 
@@ -96,6 +96,17 @@ public class MainWindowViewModel
         }
     }
 
+    public async Task SendSlashCommandToDiscord(string text)
+    {
+        var result = await WebView2Service.SendDiscordSlashCommand(text).ConfigureAwait(false);
+        nLogger.Log(LogLevel.Info, $"Sent slash command to discord with {text} and result {result}");
+        if (result.ToLower() == "finished")
+        {
+            Thread.Sleep(Settings.KeyBoardDelay);
+            FocusTextBox();
+        }
+    }
+
     public void OnSideBarVisibleChanged()
     {
         if (_Loading) return;
@@ -134,6 +145,10 @@ public class MainWindowViewModel
             {
                 await WebView2Service.ClickButton(1);
             }
+        }
+        else if (CommandText.ToLower().StartsWith("/"))
+        {
+             await SendSlashCommandToDiscord(CommandText);
         }
         else
         {

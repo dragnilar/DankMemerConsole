@@ -48,7 +48,9 @@ namespace DankMemerConsole.CustomControls
         {
             try
             {
-                Messenger.Default.Send(new Tuple<string, string>("DankMessage", Content.ToString()));
+                var messageType = "DankMessage";
+                var messageContent = Content.ToString();
+                Messenger.Default.Send((messageType, messageContent));
                 StartTimer();
             }
             catch (Exception exception)
