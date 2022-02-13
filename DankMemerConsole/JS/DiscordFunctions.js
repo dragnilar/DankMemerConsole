@@ -23,6 +23,22 @@ function ClickButtons(buttonIndex, messageIndex = 2) {
     lastMessageButtons[buttonIndex].click();
 }
 
+function IsSlashCommandBoxVisible() {
+    var isVisible = false;
+
+    var results =
+        getElementsByXPath(
+            '/html/body/div[1]/div[2]/div/div[2]/div/div/div/div/div[2]/div[2]/main/form/div/div/div/div[2]',
+            document);
+    var foundElement = results[0];
+    if (foundElement.className.includes("autocomplete")) {
+        return true;
+    }
+    return false;
+
+}
+
+
 function ChangeDiscordFont(fontName = 'Montserrat') {
     document.body.style.fontFamily = fontName;
 }
