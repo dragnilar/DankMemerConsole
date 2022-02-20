@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using DankMemerConsole.Properties;
+using Desktop.Robot;
+using Desktop.Robot.Extensions;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.UI;
 using Microsoft.Web.WebView2.Core;
@@ -49,42 +51,30 @@ public class WebView2Service : ServiceBase, IWebView2Service
             WebView2.Focus();
             if (WebView2.IsFocused)
             {
-                var commandWithoutSlash = slashCommand.Remove(0, 1);
-                var restOfCommandArray = commandWithoutSlash.Split(" ");
-                InputSimulator.Keyboard.TextEntry("/");
-                Thread.Sleep(50);
-                if (restOfCommandArray.Length > 1)
-                {
-                    for (int i = 0; i < restOfCommandArray.Length; i++)
-                    {
-                        if (!string.IsNullOrWhiteSpace(restOfCommandArray[i]))
-                        {
-                            if (i == 0)
-                            {
-                                InputSimulator.Keyboard.TextEntry(restOfCommandArray[i]).KeyDown(VirtualKeyCode.TAB)
-                                    .KeyDown(VirtualKeyCode.SPACE);
-                                Thread.Sleep(200);
-                            }
-                            else
-                            {
-                                InputSimulator.Keyboard.TextEntry(restOfCommandArray[i]).KeyDown(VirtualKeyCode.SPACE);
-                                Thread.Sleep(50);
-                            }
-
-                        }
-                    }
-                }
-                else
-                {
-                    InputSimulator.Keyboard.TextEntry(restOfCommandArray[0]).KeyDown(VirtualKeyCode.TAB)
-                        .KeyDown(VirtualKeyCode.RETURN);
-                }
-
-                Thread.Sleep(20);
-                InputSimulator.Keyboard.KeyDown(VirtualKeyCode.RETURN);
-
-                success = true;
+                var robot = new Robot();
+                robot.Type(slashCommand, 100);
             }
+
+            success = true;
+        });
+
+        return success ? "Finished" : "Failed";
+    }
+
+    public async Task<string> SendSlashCommandPartTwo()
+    {
+        var success = false;
+        await Dispatcher.InvokeAsync(() =>
+        {
+            WebView2.Focus();
+            if (WebView2.IsFocused)
+            {
+                var robot = new Robot();
+                robot.KeyPress(Key.Tab);
+                robot.KeyPress(Key.Enter);
+            }
+
+            success = true;
         });
         return success ? "Finished" : "Failed";
     }
@@ -97,7 +87,14 @@ public class WebView2Service : ServiceBase, IWebView2Service
             WebView2.Focus();
             if (WebView2.IsFocused)
             {
-                InputSimulator.Keyboard.TextEntry(message).KeyPress(VirtualKeyCode.RETURN);
+                if (string.IsNullOrWhiteSpace(message))
+                {
+                    InputSimulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                }
+                else
+                {
+                    InputSimulator.Keyboard.TextEntry(message).KeyPress(VirtualKeyCode.RETURN);
+                }
                 success = true;
             }
 

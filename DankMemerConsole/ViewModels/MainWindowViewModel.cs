@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Threading;
 using DankMemerConsole.Constants;
 using DankMemerConsole.Messages;
@@ -99,8 +100,16 @@ public class MainWindowViewModel
 
     public async Task SendSlashCommandToDiscord(string text)
     {
-        var result = await WebView2Service.SendDiscordSlashCommand(text).ConfigureAwait(false);
-        nLogger.Log(LogLevel.Info, $"Sent slash command to discord with {text} and result {result}");
+        var commandResult = await WebView2Service.SendDiscordSlashCommand(text).ConfigureAwait(false);
+        if (commandResult.ToLower() == "finished")
+        {
+            Thread.Sleep(Settings.KeyBoardDelay);
+        }
+    }
+
+    public async Task SendSlashCommandToDiscordPartTwo()
+    {
+        var result = await WebView2Service.SendSlashCommandPartTwo().ConfigureAwait(false);
         if (result.ToLower() == "finished")
         {
             Thread.Sleep(Settings.KeyBoardDelay);
@@ -145,6 +154,7 @@ public class MainWindowViewModel
         else if (CommandText.ToLower().StartsWith("/"))
         {
             await SendSlashCommandToDiscord(CommandText);
+            await SendSlashCommandToDiscordPartTwo();
         }
         else
         {

@@ -15,6 +15,7 @@ public interface IWebView2Service
     public Task<string> SendJavaScript(string script);
     public Task<string> SendDiscordMessage(string message);
     public Task<string> SendDiscordSlashCommand(string slashCommand);
+    public Task<string> SendSlashCommandPartTwo();
     public Task<string> RegisterScripts();
     public Task<string> HideDiscordSideBar();
     public Task<string> ShowDiscordSideBar();
