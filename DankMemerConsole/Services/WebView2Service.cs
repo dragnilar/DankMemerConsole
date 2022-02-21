@@ -23,6 +23,16 @@ public class WebView2Service : ServiceBase, IWebView2Service
     public WebView2 WebView2 => (WebView2) AssociatedObject;
     private InputSimulator InputSimulator = new InputSimulator();
 
+    public void SetCreationProperties()
+    {
+        WebView2.CreationProperties = new CoreWebView2CreationProperties
+        {
+            UserDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "DankMemerConsole")
+        };
+        WebView2.Source = new Uri("https://www.discord.com");
+    }
+
     public void Navigate(string url)
     {
         if (!url.StartsWith("http://") && !url.StartsWith("https://"))

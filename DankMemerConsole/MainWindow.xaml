@@ -199,7 +199,7 @@
             BorderBrush="Green"
             BorderThickness="2"
             CornerRadius="2">
-            <wpf:WebView2 Name="WebView2" Source="https://www.discord.com">
+            <wpf:WebView2 Name="WebView2">
                 <dxmvvm:Interaction.Behaviors>
                     <services:WebView2Service />
                 </dxmvvm:Interaction.Behaviors>

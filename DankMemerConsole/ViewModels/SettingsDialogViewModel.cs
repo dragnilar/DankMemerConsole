@@ -12,7 +12,6 @@ namespace DankMemerConsole.ViewModels
     public class SettingsDialogViewModel : ISupportParameter
     {
         private static Logger nLogger = LogManager.GetCurrentClassLogger();
-        public DankMemerConsoleSettings Settings;
         public virtual int SlotBetAmount { get; set; }
         public virtual int BjBetAmount { get; set; }
         public virtual int GambleBetAmount { get; set; }
@@ -27,11 +26,7 @@ namespace DankMemerConsole.ViewModels
         /// Support parameter that accepts a DankMemerConsoleSettings Object
         /// Setting any other type of object will cause a cast exception
         /// </summary>
-        public object Parameter
-        {
-            get => Settings;
-            set => Settings = (DankMemerConsoleSettings)value;
-        }
+        public object Parameter { get; set; }
 
         /// <summary>
         /// Creates an instance of the view model, used for setting the view model on dependent services in parent view model.
@@ -51,14 +46,14 @@ namespace DankMemerConsole.ViewModels
         /// </summary>
         public void Loaded()
         {
-            SlotBetAmount = Settings.SlotBetAmount;
-            BjBetAmount = Settings.BjBetAmount;
-            GambleBetAmount = Settings.GambleBetAmount;
-            SnakeEyesBetAmount = Settings.SnakeEyesBetAmount;
-            ScratchBetAmount = Settings.ScratchBetAmount;
-            WithDrawAmount = Settings.WithDrawAmount;
-            LotteryAmount = Settings.LotteryAmount;
-            KeyBoardDelay = Settings.KeyBoardDelay;
+            SlotBetAmount = App.Settings.SlotBetAmount;
+            BjBetAmount = App.Settings.BjBetAmount;
+            GambleBetAmount = App.Settings.GambleBetAmount;
+            SnakeEyesBetAmount = App.Settings.SnakeEyesBetAmount;
+            ScratchBetAmount = App.Settings.ScratchBetAmount;
+            WithDrawAmount = App.Settings.WithDrawAmount;
+            LotteryAmount = App.Settings.LotteryAmount;
+            KeyBoardDelay = App.Settings.KeyBoardDelay;
         }
 
 
@@ -70,15 +65,15 @@ namespace DankMemerConsole.ViewModels
             try
             {
                 nLogger.Log(LogLevel.Debug, "Saving settings");
-                Settings.SlotBetAmount = SlotBetAmount;
-                Settings.BjBetAmount = BjBetAmount;
-                Settings.GambleBetAmount = GambleBetAmount;
-                Settings.SnakeEyesBetAmount = SnakeEyesBetAmount;
-                Settings.ScratchBetAmount = ScratchBetAmount;
-                Settings.WithDrawAmount = WithDrawAmount;
-                Settings.LotteryAmount = LotteryAmount;
-                Settings.KeyBoardDelay = KeyBoardDelay;
-                Settings.Save();
+                App.Settings.SlotBetAmount = SlotBetAmount;
+                App.Settings.BjBetAmount = BjBetAmount;
+                App.Settings.GambleBetAmount = GambleBetAmount;
+                App.Settings.SnakeEyesBetAmount = SnakeEyesBetAmount;
+                App.Settings.ScratchBetAmount = ScratchBetAmount;
+                App.Settings.WithDrawAmount = WithDrawAmount;
+                App.Settings.LotteryAmount = LotteryAmount;
+                App.Settings.KeyBoardDelay = KeyBoardDelay;
+                App.Settings.Save();
                 CurrentWindowService.Close();
             }
             // ReSharper disable once CatchAllClause - too many possible I/O exceptions and/or potential DevExpress errors

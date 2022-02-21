@@ -26,20 +26,19 @@ public class MainWindowViewModel
     private DispatcherTimer _timer;
     public virtual bool SideBarVisible { get; set; }
 
-    public MainWindowViewModel()
-    {
-        Settings = new DankMemerConsoleSettings();
-        if (File.Exists(Settings.FullFilePath)) Settings.Load();
-    }
-
     public virtual bool LoggedIntoDiscord { get; set; }
     public virtual string CommandText { get; set; }
     public virtual string TimerValue { get; set; }
-    public DankMemerConsoleSettings Settings { get; set; }
     protected virtual IWebView2Service WebView2Service => this.GetService<IWebView2Service>();
+
+    public MainWindowViewModel()
+    {
+        
+    }
 
     public void Loaded()
     {
+        WebView2Service.SetCreationProperties();
         _Loading = true;
         SideBarVisible = true;
         TimerValue = "No Timer Running";
@@ -59,8 +58,8 @@ public class MainWindowViewModel
     {
         if (!LoggedIntoDiscord)
         {
-            WebView2Service.Navigate(!string.IsNullOrWhiteSpace(Settings.DankChannelUrl)
-                ? Settings.DankChannelUrl
+            WebView2Service.Navigate(!string.IsNullOrWhiteSpace(App.Settings.DankChannelUrl)
+                ? App.Settings.DankChannelUrl
                 : "https://discord.com/channels/@me");
         }
         var registerOtherScriptsResult = WebView2Service.RegisterScripts();
@@ -70,9 +69,9 @@ public class MainWindowViewModel
 
     public void RegisterChannel()
     {
-        Settings.DankChannelUrl = WebView2Service.GetCurrentUrl();
-        Settings.Save();
-        nLogger.Log(LogLevel.Debug, $"Set Dank Channel URL to {Settings.DankChannelUrl}");
+        App.Settings.DankChannelUrl = WebView2Service.GetCurrentUrl();
+        App.Settings.Save();
+        nLogger.Log(LogLevel.Debug, $"Set Dank Channel URL to {App.Settings.DankChannelUrl}");
     }
 
     public async void SendDankMessage(string commandText)
@@ -93,7 +92,7 @@ public class MainWindowViewModel
         nLogger.Log(LogLevel.Info, $"Sent discord message: {text} with result {result}");
         if (result.ToLower() == "finished")
         {
-            Thread.Sleep(Settings.KeyBoardDelay);
+            Thread.Sleep(App.Settings.KeyBoardDelay);
             FocusTextBox();
         }
     }
@@ -103,7 +102,7 @@ public class MainWindowViewModel
         var commandResult = await WebView2Service.SendDiscordSlashCommand(text).ConfigureAwait(false);
         if (commandResult.ToLower() == "finished")
         {
-            Thread.Sleep(Settings.KeyBoardDelay);
+            Thread.Sleep(App.Settings.KeyBoardDelay);
         }
     }
 
@@ -112,7 +111,7 @@ public class MainWindowViewModel
         var result = await WebView2Service.SendSlashCommandPartTwo().ConfigureAwait(false);
         if (result.ToLower() == "finished")
         {
-            Thread.Sleep(Settings.KeyBoardDelay);
+            Thread.Sleep(App.Settings.KeyBoardDelay);
             FocusTextBox();
         }
     }
@@ -131,7 +130,7 @@ public class MainWindowViewModel
         var service = this.GetRequiredService<IWindowService>();
         var vm = SettingsDialogViewModel.Create();
         service.Title = "Settings";
-        service.Show(null, vm, Settings, this);
+        service.Show(null, vm, this);
     }
 
     public async Task SendTextBoxMessage()
@@ -195,25 +194,25 @@ public class MainWindowViewModel
         switch (command)
         {
             case "bet":
-                commandText = $"pls bet {Settings.GambleBetAmount}";
+                commandText = $"pls bet {App.Settings.GambleBetAmount}";
                 break;
             case "se":
-                commandText = $"pls se {Settings.SnakeEyesBetAmount}";
+                commandText = $"pls se {App.Settings.SnakeEyesBetAmount}";
                 break;
             case "bj":
-                commandText = $"pls bj {Settings.BjBetAmount}";
+                commandText = $"pls bj {App.Settings.BjBetAmount}";
                 break;
             case "scratch":
-                commandText = $"pls scratch {Settings.ScratchBetAmount}";
+                commandText = $"pls scratch {App.Settings.ScratchBetAmount}";
                 break;
             case "slots":
-                commandText = $"pls slots {Settings.SlotBetAmount}";
+                commandText = $"pls slots {App.Settings.SlotBetAmount}";
                 break;
             case "lotto":
-                commandText = $"pls lotto {Settings.LotteryAmount}";
+                commandText = $"pls lotto {App.Settings.LotteryAmount}";
                 break;
             default:
-                commandText = $"pls bet {Settings.GambleBetAmount}";
+                commandText = $"pls bet {App.Settings.GambleBetAmount}";
                 break;
 
         }
@@ -249,7 +248,7 @@ public class MainWindowViewModel
 
     }
 
-    public async Task Withdraw() => await SendMessageToDiscord(Settings.WithDrawAmount == 0 ? "pls with max" : $"pls with {Settings.WithDrawAmount}");
+    public async Task Withdraw() => await SendMessageToDiscord(App.Settings.WithDrawAmount == 0 ? "pls with max" : $"pls with {App.Settings.WithDrawAmount}");
     public void FocusTextBox() =>         Messenger.Default.Send("FocusTextBoxCommandBox");
     public void FocusWebView2() =>        WebView2Service.FocusDiscord();
     public async void ChangeDiscordFont() =>         await WebView2Service.ChangeDiscordFont();

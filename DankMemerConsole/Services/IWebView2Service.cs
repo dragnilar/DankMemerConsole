@@ -11,6 +11,7 @@ namespace DankMemerConsole.Services;
 public interface IWebView2Service
 {
     public WebView2 WebView2 { get; }
+    public void SetCreationProperties();
     public void Navigate(string url);
     public Task<string> SendJavaScript(string script);
     public Task<string> SendDiscordMessage(string message);
