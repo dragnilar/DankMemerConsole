@@ -215,6 +215,13 @@
                 <dxmvvm:KeyToCommand Command="{Binding SendTextBoxMessageCommand}" KeyGesture="Enter" />
             </dxmvvm:Interaction.Behaviors>
         </TextBox>
+        <Button
+            Name="ButtonTestSlashCommand"
+            Grid.Row="9"
+            Grid.Column="7"
+            Click="TestSlashCommand_OnClick"
+            Content="Click me"
+            Visibility="Collapsed" />
         <TextBlock
             Grid.Row="10"
             Grid.Column="0"

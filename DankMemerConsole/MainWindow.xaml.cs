@@ -14,8 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Desktop.Robot;
+using Desktop.Robot.Extensions;
 using DevExpress.Mvvm;
 using ModernWpf.Controls;
+using Key = Desktop.Robot.Key;
 
 namespace DankMemerConsole
 {
@@ -39,6 +42,17 @@ namespace DankMemerConsole
                     TextBoxCommandBox.Focus();
                 });
             }
+        }
+
+        private void TestSlashCommand_OnClick(object sender, RoutedEventArgs e)
+        {
+            var robot = new Robot{AutoDelay = 100};
+            WebView2.Focus();
+            robot.Type("/"); ;
+            robot.Type("whatshard");
+            robot.KeyPress(Key.Enter);
+            robot.KeyPress(Key.Enter);
+            TextBoxCommandBox.Focus();
         }
     }
 }

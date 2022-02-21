@@ -1,16 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using DankMemerConsole.Properties;
 using Desktop.Robot;
 using Desktop.Robot.Extensions;
-using DevExpress.Mvvm;
 using DevExpress.Mvvm.UI;
-using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using WindowsInput;
-using WindowsInput.Native;
 
 namespace DankMemerConsole.Services;
 
@@ -21,7 +16,7 @@ namespace DankMemerConsole.Services;
 public class WebView2Service : ServiceBase, IWebView2Service
 {
     public WebView2 WebView2 => (WebView2) AssociatedObject;
-    private InputSimulator InputSimulator = new InputSimulator();
+    private Robot Robot = new();
 
     public void SetCreationProperties()
     {
@@ -61,8 +56,7 @@ public class WebView2Service : ServiceBase, IWebView2Service
             WebView2.Focus();
             if (WebView2.IsFocused)
             {
-                var robot = new Robot();
-                robot.Type(slashCommand, 100);
+                Robot.Type(slashCommand, 100);
             }
 
             success = true;
@@ -79,9 +73,8 @@ public class WebView2Service : ServiceBase, IWebView2Service
             WebView2.Focus();
             if (WebView2.IsFocused)
             {
-                var robot = new Robot();
-                robot.KeyPress(Key.Tab);
-                robot.KeyPress(Key.Enter);
+                Robot.KeyPress(Key.Tab);
+                Robot.KeyPress(Key.Enter);
             }
 
             success = true;
@@ -99,11 +92,11 @@ public class WebView2Service : ServiceBase, IWebView2Service
             {
                 if (string.IsNullOrWhiteSpace(message))
                 {
-                    InputSimulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                    Robot.KeyPress(Key.Enter);
                 }
                 else
                 {
-                    InputSimulator.Keyboard.TextEntry(message).KeyPress(VirtualKeyCode.RETURN);
+                    Robot.Type(message).KeyPress(Key.Enter);
                 }
                 success = true;
             }
