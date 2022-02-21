@@ -130,7 +130,7 @@ public class MainWindowViewModel
         var service = this.GetRequiredService<IWindowService>();
         var vm = SettingsDialogViewModel.Create();
         service.Title = "Settings";
-        service.Show(null, vm, this);
+        service.Show(null, vm, null, this);
     }
 
     public async Task SendTextBoxMessage()

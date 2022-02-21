@@ -16,7 +16,7 @@ public class DankMemerConsoleSettings : SettingsManager
 
     public DankMemerConsoleSettings()
     {
-        Configuration.StorageSpace = StorageSpace.Instance;
+        Configuration.StorageSpace = StorageSpace.UserDomain;
         Configuration.FileName = "DankMemerConsoleSettings.json";
     }
 }
